@@ -1,0 +1,178 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caprasimo:wght@400;700&display=swap");
+
+/* RESET */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* END RESET */
+
+body {
+	overflow: auto;
+	line-height: 1;
+	-webkit-text-size-adjust: none;
+	-webkit-tap-highlight-color: transparent;
+	font-family: 'Times New Roman', sans-serif;
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	background-color: var(--bg-color);
+	scrollbar-width: thin;
+	scrollbar-color: transparent transparent;
+}
+
+body::-webkit-scrollbar {
+    width: 0px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--hover-layer-color);
+    opacity: 0;
+    pointer-events: none;
+	z-index: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Banner */
+.banner {
+    position: relative;
+    width: 100%;
+	overflow: hidden;
+}
+
+.banner img {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    filter: blur(5px) brightness(.5);
+	user-select: none;
+	object-fit: cover;
+}
+
+.banner-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	color: white;
+	list-style-type: none;
+}
+
+.banner-content .title {
+	color: var(--bg-color);
+	-webkit-text-stroke: 2px var(--primary-color);
+	text-stroke: 2px var(--primary-color);
+	padding: 10px 20px 20px 20px;
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+	border-radius: 20px 20px 0 0;
+	font-size: 3.5rem;
+	font-family: 'Caprasimo';
+	font-weight: 100;
+	margin-bottom: 25px;
+}
+
+.banner-content .subtitle {
+	color: var(--secondary-color-dark-shade-1);
+	border-radius: 0 0 20px 20px;
+	padding: 30px 50px;
+	font-size: 1.5rem;
+	font-style: italic;
+	line-height: .75em;
+}
+.subtitle .left {
+	display: block;
+	text-align: left;
+}
+.subtitle .right {
+	display: block;
+	text-align: right;
+}
+.subtitle .tilde {
+	display: block;
+	text-align: right;
+	font-style: bold;
+	margin-top: 30px;
+	font-size: 1rem;
+}
+
+.banner .fading-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 105%;
+    pointer-events: none;
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 0), var(--bg-color));
+}
+
+
+/* Content */
+
+#content {
+	width: 90%;
+	margin: auto;
+    flex: 1;
+    color: white;
+    font-family: "Quicksand", sans-serif;
+}
+
+#content p {
+	background-color: var(--bg-color-light-shade-1);
+	border-radius: 10px;
+	padding: 10px;
+	font-size: 18px;
+	margin-top: 10px;
+	line-height: 1.4;
+}
+
+#content h2 {
+	font-size: 28px;
+	margin-top: 48px;
+}
+
+/* Chat */
+
+#chat-system {
+	width: 90%;
+	margin: auto;
+}
+
+@media (min-width:320px) {
+	/* smartphones, iPhone, portrait 480x320 phones */ 
+}
+@media (min-width:481px)  {
+	/* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+}
+@media (min-width:641px)  {
+	/* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+}
+@media (min-width:961px)  {
+	/* tablet, landscape iPad, lo-res laptops ands desktops */
+}
+@media (min-width:1025px) {
+	/* big landscape tablets, laptops, and desktops */
+}
+@media (min-width:1281px) {
+	/* hi-res laptops and desktops */
+}
