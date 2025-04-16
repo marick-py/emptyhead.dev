@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Content</title>
+    </head>
+    <body>
+        <div id="sub-description">
+            <h1>Advanced Version of TicTacToe</h1>
+            <!-- <img src="assets/images/e2D_logo.png" alt="e2D" oncontextmenu="return false;" draggable="false"> -->
+            <h2>~ instructions ~</h2>
+            <p>Use the full 9x9  board, but one at time, you have to divide the subboards from the global board, whenever you set a value in the subboard during your turn the opponent has to play in the same position of your pick but in the big board.</p>
+
+            <a href="#" class="show-button"><i class="fas fa-code"></i>  Show Code  <i class="fas fa-code"></i></a>
+            <pre id="code" class="hidden">
+                <code class="language-python">
+from e2D.envs import *
+import asyncio
+
+get_enemy = lambda player: int(not player)
+
+EMPTY_ID = -1
+O_ID = 0
+X_ID = 1
+
+win_positions = [[0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 4, 8], [2, 4, 6]]
+
+_1d23d = lambda n: V2(*divmod(n, 3)[::-1])
+
+def get_win(board:"SubBoard|MainBoard", return_coords=False) -> None | int | tuple[int, tuple[V2|Vector2D, V2|Vector2D]]:
+    for player in [O_ID, X_ID]:
+        for wp in win_positions:
+            if board.cells[wp[0]].value == board.cells[wp[1]].value == board.cells[wp[2]].value == player:
+                return (player, (_1d23d(wp[0]), _1d23d(wp[-1]))) if return_coords else player
+    return None        
+
+class Cell:
+    def __init__(self, parent, cell_position) -> None:
+        self.parent :SubBoard= parent
+        self.cell_position = cell_position
+        self.size = self.parent.size / 3
+        self.position = self.parent.position + self.cell_position * self.size
+
+        self.rect = self.position() + self.size()
+        self.is_selected = False
+        self.value :int= EMPTY_ID
+    
+    def draw(self) -> None:
+        if self.value == O_ID:
+            pg.draw.circle(rootEnv.screen, rgb(255,255,255), (self.position + self.size / 2)(), min(self.size * .85) / 2, 10) # type: ignore 
+        elif self.value == X_ID:
+            pg.draw.line(rootEnv.screen, rgb(255,255,255), (self.position + self.size / 2).point_from_degs(45, min(self.size * .85) / 2)(), (self.position + self.size / 2).point_from_degs(225, min(self.size * .85) / 2)(), 10) #type: ignore
+            pg.draw.line(rootEnv.screen, rgb(255,255,255), (self.position + self.size / 2).point_from_degs(-45, min(self.size * .85) / 2)(), (self.position + self.size / 2).point_from_degs(135, min(self.size * .85) / 2)(), 10) #type: ignore
+        
+        if self.is_selected:
+            if self.parent.parent.turn == O_ID:
+                pg.draw.circle(rootEnv.screen, rgb(45, 117, 119), (self.position + self.size / 2)(), min(self.size * .85) / 2, 10) # type: ignore 
+            elif self.parent.parent.turn == X_ID:
+                pg.draw.line(rootEnv.screen, rgb(45, 117, 119), (self.position + self.size / 2).point_from_degs(45, min(self.size * .85) / 2)(), (self.position + self.size / 2).point_from_degs(225, min(self.size * .85) / 2)(), 10) #type: ignore
+                pg.draw.line(rootEnv.screen, rgb(45, 117, 119), (self.position + self.size / 2).point_from_degs(-45, min(self.size * .85) / 2)(), (self.position + self.size / 2).point_from_degs(135, min(self.size * .85) / 2)(), 10) #type: ignore
+
+    def update(self) -> None:
+        self.is_selected = False
+
+class SubBoard:
+    def __init__(self, parent, cell_position) -> None:
+        self.parent :"MainBoard"= parent
+        self.cell_position = cell_position
+
+        self.size = self.parent.cell_size
+        self.position = self.parent.position + self.cell_position * self.size
+        self.value :int= EMPTY_ID
+
+        self.scale = .95
+        self.rect = (self.position + self.size * (1 - self.scale))() + (self.size - self.size * ((1 - self.scale) * 2))() #type: ignore
+        self.rect_lines = [
+            (V2(self.position.x + self.size.x / 3, self.position.y), V2(self.position.x + self.size.x / 3, self.position.y + self.size.y)),
+            (V2(self.position.x + self.size.x / 3 * 2, self.position.y), V2(self.position.x + self.size.x / 3 * 2, self.position.y + self.size.y)),
+            (V2(self.position.x, self.position.y + self.size.y / 3), V2(self.position.x + self.size.x, self.position.y + self.size.y / 3)),
+            (V2(self.position.x, self.position.y + self.size.y / 3 * 2), V2(self.position.x + self.size.x, self.position.y + self.size.y / 3 * 2)),
+        ]
+        self.is_selected = False
+
+        self.cells = [Cell(self, V2(x, y)) for y in range(3) for x in range(3)]
+
+    def draw(self) -> None:
+        color = rgb(38, 13, 13)
+        if self.is_selected:
+            color = rgb(117, 34, 34)
+        elif self.parent.forced_cell == self.cell_position or (self.parent.forced_cell == None and self.value == EMPTY_ID):
+            color = rgb(34, 117, 38)
+        pg.draw.rect(rootEnv.screen, color, self.rect) # type: ignore
+        for (rl_a, rl_b) in self.rect_lines:
+            pg.draw.line(rootEnv.screen, rgb(191, 191, 191), rl_a(), rl_b()) # type: ignore
+        
+        for cell in self.cells: cell.draw()
+
+        if self.value != EMPTY_ID:
+            s = pg.Surface(self.size(), pg.SRCALPHA)
+            s.fill((0, 0, 0, int(255 * .9)))
+            rootEnv.screen.blit(s, self.position())
+
+            if self.value == O_ID:
+                pg.draw.circle(rootEnv.screen, rgb(255,255,255), (self.position + self.size / 2)(), min(self.size * .85) / 2, 10) # type: ignore 
+            elif self.value == X_ID:
+                pg.draw.line(rootEnv.screen, rgb(255,255,255), (self.position + self.size / 2).point_from_degs(45, min(self.size * .85) / 2)(), (self.position + self.size / 2).point_from_degs(225, min(self.size * .85) / 2)(), 10) #type: ignore
+                pg.draw.line(rootEnv.screen, rgb(255,255,255), (self.position + self.size / 2).point_from_degs(-45, min(self.size * .85) / 2)(), (self.position + self.size / 2).point_from_degs(135, min(self.size * .85) / 2)(), 10) #type: ignore
+        
+    def update(self) -> None:
+        for cell in self.cells: cell.update()
+        self.get_selected()
+        
+    def get_selected(self, return_value:bool=False) -> V2|Vector2D|None:
+        self.is_selected = self.position.x < rootEnv.mouse.position.x < self.position.x + self.size.x and \
+            self.position.y < rootEnv.mouse.position.y < self.position.y + self.size.y
+        
+        if self.is_selected:
+            pos = (rootEnv.mouse.position - self.position) // (self.size / 3)
+            if return_value:
+                return pos
+            else:
+                self.get_cell(pos).is_selected = True
+        else:
+            if return_value: return None
+    
+    def get_cell(self, n:int|V2|Vector2D) -> Cell:
+        if isinstance(n, V2|Vector2D):
+            n = int(n.x + n.y * 3)
+        return self.cells[n]
+
+class MainBoard:
+    def __init__(self) -> None:
+        self.size_scale = .8
+        self.size = rootEnv.screen_size * self.size_scale
+        self.position = rootEnv.screen_size * (1 - self.size_scale) * .5
+        self.cell_size = self.size / 3
+        self.rect = self.position() + self.size() #type: ignore
+        self.rect_lines = [
+            (V2(self.position.x + self.size.x / 3, self.position.y), V2(self.position.x + self.size.x / 3, self.position.y + self.size.y)),
+            (V2(self.position.x + self.size.x / 3 * 2, self.position.y), V2(self.position.x + self.size.x / 3 * 2, self.position.y + self.size.y)),
+            (V2(self.position.x, self.position.y + self.size.y / 3), V2(self.position.x + self.size.x, self.position.y + self.size.y / 3)),
+            (V2(self.position.x, self.position.y + self.size.y / 3 * 2), V2(self.position.x + self.size.x, self.position.y + self.size.y / 3 * 2)),
+        ]
+        self.reset()
+
+    def reset(self) -> None:
+        self.cells = [SubBoard(self, V2(x, y)) for y in range(3) for x in range(3)]
+        self.turn = 0
+        self.forced_cell = None
+        self.winner = None
+    
+    def update(self) -> None:
+        if self.winner == None:
+            if rootEnv.mouse.just_pressed[0] and \
+                self.position.x < rootEnv.mouse.position.x < self.position.x + self.size.x and \
+                self.position.y < rootEnv.mouse.position.y < self.position.y + self.size.y:
+                cell = (rootEnv.mouse.position - self.position) // (self.size / 3)
+                if self.forced_cell == None or cell == self.forced_cell:
+                    board = self.get_cell(cell)
+                    sub_cell = board.get_cell(board.get_selected(True)) #type: ignore
+
+                    if board.value == EMPTY_ID and sub_cell.value == EMPTY_ID:
+                        sub_cell.value = self.turn
+                        self.turn = get_enemy(self.turn)
+
+                        if (local_win:=get_win(board)) != None:
+                            board.value = local_win #type: ignore
+
+                        if self.get_cell(sub_cell.cell_position).value == EMPTY_ID:
+                            self.forced_cell = sub_cell.cell_position
+                        else:
+                            self.forced_cell = None
+                        
+                        if (global_winner:=get_win(self, True)) != None:
+                            self.winner = global_winner
+
+            for board in self.cells: board.update()
+        else:
+            if rootEnv.mouse.just_pressed[0]:
+                self.reset()
+
+    def draw(self) -> None:
+        pg.draw.rect(rootEnv.screen, rgb(26, 26, 26), self.rect) # type: ignore
+        for (rl_a, rl_b) in self.rect_lines:
+            pg.draw.line(rootEnv.screen, rgb(187, 187, 187), rl_a(), rl_b(), 5) # type: ignore
+        
+        for board in self.cells: board.draw()
+
+        if self.winner != None:
+            s = pg.Surface(rootEnv.screen_size(), pg.SRCALPHA)
+            s.fill((0, 0, 0, int(255 * .9)))
+            rootEnv.screen.blit(s, (0,0))
+            pg.draw.line(rootEnv.screen, (255,255,255), (self.position + self.cell_size * (self.winner[1][0] + .5))(), (self.position + self.cell_size * (self.winner[1][1] + .5))(), 10) #type: ignore
+        rootEnv.print(f"Turn: {'O' if not self.turn else 'X'}", V2(10, 10))
+    
+    def get_cell(self, n:int|V2|Vector2D) -> SubBoard:
+        if isinstance(n, V2|Vector2D):
+            n = int(n.x + n.y * 3)
+        return self.cells[n]
+        
+class Env:
+    def __init__(self) -> None:
+        self.board = MainBoard()
+
+    def draw(self) -> None:
+        self.board.draw()
+
+    def update(self) -> None:
+        self.board.update()
+
+(rootEnv:=RootEnv(V2(800, 800), show_fps=False)).init(Env())
+async def main() -> None:
+    while not rootEnv.quit:
+        rootEnv.frame()
+        await asyncio.sleep(0)
+
+asyncio.run(main())
+                </code>
+            </pre>
+
+            <a href="assets\example_programs\uttt\web\uttt.html" class="play-button"><i class="fas fa-gamepad"></i>  Play  <i class="fas fa-gamepad"></i></a>
+        </div>
+    </body>
+</html>
