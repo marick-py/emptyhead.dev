@@ -1,34 +1,33 @@
+// Get references to DOM elements
 const nodesContainer = document.getElementById('Nodes');
 const linesContainer = document.getElementById('Lines');
 const header = document.getElementById('local-header');
 
-let jsonData;
+let jsonData; // Variable to store JSON data
 
-let mouseX;
-let mouseY;
-
+// Calculate the top margin based on the header's bottom position
 const top_margin = header.getBoundingClientRect().bottom;
 
+// Fetch JSON data for the graph and initialize the graph
 fetch('assets/json/myprojects.json')
-.then(response => response.json())
-.then(data => {
-    jsonData = data;
-    updateGraph();
-})
-.catch(error => {console.error('Error loading JSON:', error);});
+    .then(response => response.json())
+    .then(data => {
+        jsonData = data;
+        updateGraph();
+    })
+    .catch(error => { console.error('Error loading JSON:', error); });
 
+// Variables to track the current path and the last rendered path
 let currentPath = ['My Projects', 'Physics Simulations', 'Springs Simulation'];
-let lastCurrentPath = []
+let lastCurrentPath = [];
 
-const descriptions_path = "assets\\example_programs\\descriptions\\"
-
+// Path to descriptions and list of HTML scripts to load
+const descriptions_path = "assets\\projects\\descriptions\\";
 const html_scripts = ["springs.html", "uttt.html", "ttt.html"];
 
+let nodeElements = []; // Array to store node elements
 
-let html_is_loaded = false
-
-let nodeElements = [];
-
+// Utility function to compare two arrays for equality
 function arraysAreEqual(arr1, arr2) {
     if (arr1.length !== arr2.length) {
         return false;
@@ -36,41 +35,44 @@ function arraysAreEqual(arr1, arr2) {
 
     for (let i = 0; i < arr1.length; i++) {
         if (arr1[i] !== arr2[i]) {
-        return false;
+            return false;
         }
     }
 
     return true;
 }
 
+// Function to load external HTML descriptions
 function loadDescription(externalHTMLUrl) {
+    // Fetch the HTML content and store it in `loaded_html_sprits`
     fetch(descriptions_path + externalHTMLUrl)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.text();
-    })
-    .then(data => {
-        html_scripts.splice(html_scripts.indexOf(externalHTMLUrl))
-        loaded_html_sprits[externalHTMLUrl] = data
-        updateGraph();
-        
-    })
-    .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-    });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            html_scripts.splice(html_scripts.indexOf(externalHTMLUrl));
+            loaded_html_sprits[externalHTMLUrl] = data;
+            updateGraph(); // Update the graph after loading
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
 }
 
-let loaded_html_sprits = {}
+let loaded_html_sprits = {}; // Object to store loaded HTML scripts
 
+// Load all HTML scripts
 for (script_index in html_scripts) {
     const script_name = html_scripts[script_index];
-    loadDescription(script_name)
+    loadDescription(script_name);
 }
 
+// Function to update the height of the footer spacer
 function updateFooterHeight(nodes) {
-    console.log("setting height")
+    console.log("setting height");
     const y_scroll = (window.scrollY || window.pageYOffset);
     const get_y_max = node => node.getBoundingClientRect().bottom + y_scroll;
 
@@ -82,16 +84,19 @@ function updateFooterHeight(nodes) {
     separator.style.height = `${Math.max(height, 0)}px`;
 }
 
-function updateGraph(force_new_items=false) {
-    nodeElements = [];
-    let lineElements = [];
+// Main function to update the graph
+function updateGraph(force_new_items = false) {
+    nodeElements = []; // Reset node elements
+    let lineElements = []; // Array to store line elements
 
+    // Helper function to remove all child nodes from a container
     function removeAllNodes(container) {
         while (container.firstChild) {
             container.removeChild(container.firstChild);
         }
     }
 
+    // Function to create a node element
     function createNode(path_to_this_node, x, y, max_w, in_selected_path, index, num_of_nodes) {
         const node = document.createElement('div');
         if (in_selected_path) {
@@ -103,7 +108,7 @@ function updateGraph(force_new_items=false) {
         node.style.top = `${y + top_margin}px`;
         node.style.maxWidth = `${max_w}px`;
         node.path_to_this_node = path_to_this_node;
-        node.textContent = path_to_this_node[path_to_this_node.length-1];
+        node.textContent = path_to_this_node[path_to_this_node.length - 1];
         node.x = x;
         node.y = y;
         node.index = index;
@@ -111,15 +116,17 @@ function updateGraph(force_new_items=false) {
         return node;
     }
 
+    // Function to update the position and size of a node
     function updateNode(node) {
-        x_space = window.innerWidth / node.num_of_nodes;
-        x = x_space * (node.index + 1);
+        let x_space = window.innerWidth / node.num_of_nodes;
+        let x = x_space * (node.index + 1);
 
         node.style.left = `${x}px`;
         node.style.maxWidth = `${x_space}px`;
         node.x = x;
     }
 
+    // Function to create a line element connecting two nodes
     function createLine(p1, p2, minDelta) {
         const line = document.createElement('div');
         line.p1 = p1;
@@ -127,7 +134,7 @@ function updateGraph(force_new_items=false) {
         const delta = p2.x - p1.x;
         line.style.transformOrigin = `0px 0px`;
 
-        const y_delta = p2.y - p1.y
+        const y_delta = p2.y - p1.y;
 
         if (delta == 0) {
             line.className = 'vertical-line';
@@ -136,30 +143,31 @@ function updateGraph(force_new_items=false) {
             line.style.height = '2px';
             line.style.left = `${p1.x}px`;
             line.style.top = `${p1.y + top_margin}px`;
-            line.style.transform = `rotate(${Math.PI/2}rad)`;
-        
+            line.style.transform = `rotate(${Math.PI / 2}rad)`;
+
         } else {
             line.style.height = '2px';
             line.style.left = `${p1.x}px`;
             line.style.top = `${p1.y + top_margin}px`;
-            
+
             const absDelta = Math.abs(delta);
             if (minDelta < y_delta) {
                 line.className = 'advanced-short-line';
-                line.style.setProperty('--after-before-size', `${minDelta/2}px`);
-                line.style.setProperty('--after-before-size-2', `${y_delta/2}px`);
+                line.style.setProperty('--after-before-size', `${minDelta / 2}px`);
+                line.style.setProperty('--after-before-size-2', `${y_delta / 2}px`);
                 line.style.width = `${absDelta - minDelta}px`;
-                line.style.transform = `scaleX(${(delta > 0) ? 1 : -1}) translate(${minDelta/2}px, ${y_delta/2}px)`;
+                line.style.transform = `scaleX(${(delta > 0) ? 1 : -1}) translate(${minDelta / 2}px, ${y_delta / 2}px)`;
             } else {
                 line.className = 'advanced-line';
                 line.style.width = `${absDelta - y_delta}px`;
-                line.style.setProperty('--after-before-size', `${y_delta/2}px`);
-                line.style.transform = `scaleX(${(delta > 0) ? 1 : -1}) translate(${y_delta/2}px, ${y_delta/2}px)`;
+                line.style.setProperty('--after-before-size', `${y_delta / 2}px`);
+                line.style.transform = `scaleX(${(delta > 0) ? 1 : -1}) translate(${y_delta / 2}px, ${y_delta / 2}px)`;
             }
         }
         return line;
     }
 
+    // Function to render the graph based on the current path
     function renderPath(path) {
         let y = 100;
         let x_space;
@@ -168,27 +176,28 @@ function updateGraph(force_new_items=false) {
 
         let last_row_of_lines = [];
 
-        for (let i = 0; i < path.length+1; i++) {
+        for (let i = 0; i < path.length + 1; i++) {
             if (i == 0) {
                 next_nodes = next_nodes;
             } else {
-                next_nodes = next_nodes[path[i-1]];
+                next_nodes = next_nodes[path[i - 1]];
             }
             y += 50;
             if (typeof next_nodes === 'object') {
-                let num_of_nodes = (Object.keys(next_nodes).length + 1)
+                let num_of_nodes = (Object.keys(next_nodes).length + 1);
                 x_space = window.innerWidth / num_of_nodes;
                 Object.entries(next_nodes).forEach(([key, value], index) => {
                     let nx = x_space * (index + 1);
-                    const node = createNode(path.slice(0,i).concat([key]), nx, y, x_space, path.includes(key), index, num_of_nodes);
-                    nodesContainer.appendChild(node)
-                    y = node.getBoundingClientRect().bottom + (window.pageYOffset || document.documentElement.scrollTop) - node.getBoundingClientRect().height;
+                    const node = createNode(path.slice(0, i).concat([key]), nx, y, x_space, path.includes(key), index, num_of_nodes);
+                    nodesContainer.appendChild(node);
+                    const nodeRect = node.getBoundingClientRect();
+                    y = nodeRect.bottom + (window.pageYOffset || document.documentElement.scrollTop) - nodeRect.height;
                     if (path.includes(key)) {
                         if (i != 0) {
                             lineElements.push(i === 1 ? [first_element, node] : [lineElements[lineElements.length - 1][1], node]);
                         } else {
-                            node.className = "node first-element"
-                           first_element = node;
+                            node.className = "node first-element";
+                            first_element = node;
                         }
                     }
                     if (i == path.length) {
@@ -200,7 +209,7 @@ function updateGraph(force_new_items=false) {
             } else {
                 const node = createNode([""], window.innerWidth / 2, y, window.innerWidth, true, -.5, 1);
                 node.className = "node description";
-                nodesContainer.appendChild(node)
+                nodesContainer.appendChild(node);
                 nodeElements.push(node);
                 node.id = "description";
                 node.innerHTML = loaded_html_sprits[next_nodes];
@@ -212,7 +221,9 @@ function updateGraph(force_new_items=false) {
         lineElements = lineElements.concat(last_row_of_lines);
     }
 
+    // Check if the graph needs to be updated or just repositioned
     if (false && arraysAreEqual(currentPath, lastCurrentPath) && (!force_new_items)) {
+        // Update existing nodes and lines
         if (nodesContainer) {
             Array.from(nodesContainer.children).forEach((child) => {
                 updateNode(child);
@@ -224,43 +235,37 @@ function updateGraph(force_new_items=false) {
         const get_deltas = ps => Math.abs(ps[0].x - ps[1].x);
         const minValue = Math.min(...lineElements.map(get_deltas).filter(d => d !== 0));
         lineElements.forEach(line => linesContainer.appendChild(createLine(...line, minValue)));
-        updateFooterHeight(nodeElements)
-
+        updateFooterHeight(nodeElements);
     } else {
+        // Re-render the graph from scratch
         removeAllNodes(nodesContainer);
         removeAllNodes(linesContainer);
-        
+
         renderPath(currentPath);
-        
+
         const get_deltas = ps => Math.abs(ps[0].x - ps[1].x);
         const minValue = Math.min(...lineElements.map(get_deltas).filter(d => d !== 0));
         lineElements.forEach(line => linesContainer.appendChild(createLine(...line, minValue)));
-        
-        
-        
-        lastCurrentPath = currentPath;
-        Prism.highlightAll();
+
+        lastCurrentPath = currentPath; // Update the last rendered path
     }
-    updateFooterHeight(nodeElements);
-    console.log("updated footer height")
+    updateFooterHeight(nodeElements); // Update footer height
+    console.log("updated footer height");
 }
 
-document.addEventListener('mousemove', event => {
-    mouseX = event.clientX;
-    mouseY = event.clientY;
-});
-
+// Event listener for click events on nodes and buttons
 document.addEventListener('click', event => {
     if (event.target.classList.contains('node') && !event.target.classList.contains("description")) {
-        currentPath = event.target.path_to_this_node;
+        currentPath = event.target.path_to_this_node; // Update the current path
         updateGraph();
     } else if (event.target.classList.contains("show-button")) {
         event.preventDefault();
-        document.getElementById("code").classList.toggle('hidden');
-        updateFooterHeight(nodeElements)
+        document.getElementById("code").classList.toggle('hidden'); // Toggle visibility of code
+        updateFooterHeight(nodeElements);
     }
 });
 
+// Event listener for window resize to update the graph
 window.addEventListener('resize', () => {
     updateGraph();
 });
