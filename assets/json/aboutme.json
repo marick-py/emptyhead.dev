@@ -1,0 +1,83 @@
+{
+  "About Me": {
+    "Profile": {
+      "Identity": {
+        "Basic": "I'm Riccardo Mariani, an 18-year-old self-taught programmer passionate about Python and digital technologies.",
+        "Education": {
+          "High School": "Currently attending the 5th year at Liceo Scientifico Piero Bottoni in Milan.",
+          "University Plan": "I plan to enroll in Computer Engineering at Politecnico di Milano, Leonardo campus.",
+          "PCTO Experience": "I attended several programming-focused PCTO courses at Politecnico, deepening my academic exposure to coding."
+        },
+        "Teaching": "I'm currently teaching a series of Python lessons at my high school to help fellow students develop programming skills."
+      },
+      "Origins": {
+        "Early Exposure": {
+          "Scratch": "I started coding at 10 with Scratch, creating cloud-based chat systems and RPGs using public variables.",
+          "Transition": "After Scratch, I spent a year building an RPG game in Godot with a friend before diving into Python and Java."
+        },
+        "Turning Point": "My passion ignited during a Scratch workshop in middle school, revealing programming as both a language and a tool."
+      }
+    },
+    "Projects": {
+      "Overview": {
+        "Volume": "I've created around 260 documented Python projects spanning a wide range of practical and creative applications.",
+        "Categories": {
+          "Automation": "Daily life tools, bots, Minecraft modding, and Telegram automation scripts.",
+          "Hacking": "I explored ethical hacking, including basic backdooring techniques in controlled environments."
+        }
+      },
+      "Highlights": {
+        "e2D Module": {
+          "Purpose": "e2D is a Python library for 2D graphics and simulations, heavily used in my projects.",
+          "Maintenance": "Actively maintained and updated with custom features and performance improvements."
+        }
+      },
+      "Collaboration": {
+        "GitHub": "I use GitHub for project sharing, version control, and collaborative development.",
+        "Community": "I engage with other programmers by publishing code, discussing issues, and reviewing PRs."
+      },
+      "High School Python Lessons": "I'm leading a series of extracurricular lessons on Python fundamentals at my school, covering topics from basic syntax to functions and algorithms."
+    },
+    "Simulation Work": {
+      "Focus": {
+        "High Performance": {
+          "Particle Engines": "I'm working on particle simulations with up to 30k particles rendered at stable FPS.",
+          "Optimization": "Utilizing NumPy, Numba, and Cython to optimize array-heavy computations."
+        }
+      },
+      "Physics Models": {
+        "Mechanics": "Simulations involve collision dynamics, gravitational fields, and constraint-based forces.",
+        "Numerical Methods": "I apply vectorized math and iterative algorithms for realistic motion behavior."
+      }
+    },
+    "AI Experience": {
+      "Algorithms": {
+        "Reinforcement": "I've built multiple Q-learning agents across various environments.",
+        "Neural Networks": "I experimented with PyTorch and TensorFlow to model deep-learning tasks.",
+        "NEAT": "Used NEAT for evolving AI behavior in game-like environments and simulations."
+      },
+      "Application Areas": {
+        "Image Recognition": "Applied convolutional architectures to classify image content.",
+        "Natural Language": "Built language models and basic chatbots using NLP techniques.",
+        "Projects Ratio": "Approximately 30% of my total projects include AI-related implementations."
+      },
+      "Ethical Concerns": {
+        "Reflection": "I consider the risks and ethics of automation, data use, and unintended biases in AI."
+      }
+    },
+    "Tools": {
+      "Programming Stack": {
+        "Languages": "Primary languages include Python, Java, and GDScript (Godot).",
+        "Python Libraries": "NumPy, Numba, Cython, TensorFlow, PyTorch and expecially my beloved e2D library. (which contains a e2D.envs module which is a wrapper for pygame)"
+      },
+      "DevOps": {
+        "Versioning": "I use Git and GitHub for structured and trackable development cycles.",
+        "Deployment": "I manage my own domain and perform advanced file transfer and publishing."
+      },
+      "Workflow": {
+        "IDE\\Editors": "Frequent tools include VSCode, PyCharm, and Godot’s native editor.",
+        "Testing": "I perform manual and functional testing on most projects; exploring unit testing frameworks."
+      }
+    }
+  }
+}

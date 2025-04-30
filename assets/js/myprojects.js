@@ -18,7 +18,7 @@ fetch('assets/json/myprojects.json')
     .catch(error => { console.error('Error loading JSON:', error); });
 
 // Variables to track the current path and the last rendered path
-let currentPath = ['My Projects', 'Physics Simulations', 'Springs Simulation'];
+let currentPath = ['My Projects (Work in progress)', 'Physics Simulations', 'Springs Simulation'];
 let lastCurrentPath = [];
 
 // Path to descriptions and list of HTML scripts to load
@@ -45,29 +45,21 @@ function arraysAreEqual(arr1, arr2) {
 // Function to load external HTML descriptions
 function loadDescription(externalHTMLUrl) {
     // Fetch the HTML content and store it in `loaded_html_sprits`
-    fetch(descriptions_path + externalHTMLUrl)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.text();
-        })
-        .then(data => {
-            html_scripts.splice(html_scripts.indexOf(externalHTMLUrl));
-            loaded_html_sprits[externalHTMLUrl] = data;
-            updateGraph(); // Update the graph after loading
-        })
-        .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-        });
-}
-
-let loaded_html_sprits = {}; // Object to store loaded HTML scripts
-
-// Load all HTML scripts
-for (script_index in html_scripts) {
-    const script_name = html_scripts[script_index];
-    loadDescription(script_name);
+    // fetch(descriptions_path + externalHTMLUrl)
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             throw new Error('Network response was not ok');
+    //         }
+    //         return response.text();
+    //     })
+    //     .then(data => {
+    //         html_scripts.splice(html_scripts.indexOf(externalHTMLUrl));
+    //         loaded_html_sprits[externalHTMLUrl] = data;
+    //         updateGraph(); // Update the graph after loading
+    //     })
+    //     .catch(error => {
+    //         console.error('There was a problem with the fetch operation:', error);
+    //     });
 }
 
 // Function to update the height of the footer spacer
@@ -212,7 +204,7 @@ function updateGraph(force_new_items = false) {
                 nodesContainer.appendChild(node);
                 nodeElements.push(node);
                 node.id = "description";
-                node.innerHTML = loaded_html_sprits[next_nodes];
+                // node.innerHTML = loaded_html_sprits[next_nodes];
                 currentProgram = next_nodes;
                 y = node.getBoundingClientRect().bottom + (window.pageYOffset || document.documentElement.scrollTop) - node.getBoundingClientRect().height;
                 last_row_of_lines.push(i === 1 ? [first_element, node] : [lineElements[lineElements.length - 1][1], node]);
