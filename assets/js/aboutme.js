@@ -19,7 +19,8 @@ function getPathFromHash() {
     }
     return ['About Me'];
 }
-function updateURL() {
+function updateURL(new_path) {
+    currentPath = new_path;
     const newHash = '#/' + currentPath.map(encodeURIComponent).join('/');
     if (window.location.hash !== newHash) {
         window.location.hash = newHash;
@@ -62,47 +63,40 @@ function updateGraph() {
 
     function createLine(p1, p2, minDelta) {
         const line = document.createElement('div');
-        line.p1 = p1;
-        line.p2 = p2;
+        let style = line.style;
+
         const delta = p2.x - p1.x;
-        line.style.transformOrigin = `0px 0px`;
+        style.transformOrigin = `0px 0px`;
 
         const y_delta = p2.y - p1.y
-
+        
+        style.height = '2px';
+        style.left = `${p1.x}px`;
+        style.top = `${p1.y}px`;
+        
         if (delta == 0) {
             line.className = 'vertical-line';
 
-            line.style.width = `${Math.abs(p2.y - p1.y)}px`;
-            line.style.height = '2px';
-            line.style.left = `${p1.x}px`;
-            line.style.top = `${p1.y}px`;
-            line.style.transform = `rotate(${Math.PI/2}rad)`;
-        
+            style.width = `${Math.abs(p2.y - p1.y)}px`;
+            style.transform = `rotate(${Math.PI/2}rad)`;
         } else {
-            line.style.height = '2px';
-            line.style.left = `${p1.x}px`;
-            line.style.top = `${p1.y}px`;
-            
             const absDelta = Math.abs(delta);
-            if (minDelta < y_delta) {
-                line.className = 'advanced-short-line';
-                line.style.setProperty('--after-before-size', `${minDelta/2}px`);
-                line.style.setProperty('--after-before-size-2', `${y_delta/2}px`);
-                line.style.width = `${absDelta - minDelta}px`;
-                line.style.transform = `scaleX(${(delta > 0) ? 1 : -1}) translate(${minDelta/2}px, ${y_delta/2}px)`;
-            } else {
-                line.className = 'advanced-line';
-                line.style.width = `${absDelta - y_delta}px`;
-                line.style.setProperty('--after-before-size', `${y_delta/2}px`);
-                line.style.transform = `scaleX(${(delta > 0) ? 1 : -1}) translate(${y_delta/2}px, ${y_delta/2}px)`;
-            }
+
+            line.className = minDelta < y_delta ? 'advanced-short-line' : 'advanced-line';
+
+            style.setProperty('--after-before-size-2', `${y_delta/2}px`);
+            
+            current_delta = Math.min(minDelta, y_delta)
+            style.width = `${absDelta - current_delta}px`;
+            style.transform = `scaleX(${(delta > 0) ? 1 : -1}) translate(${current_delta/2}px, ${y_delta/2}px)`;
+            style.setProperty('--after-before-size', `${current_delta/2}px`);
         }
         return line;
     }
 
     function renderPath(path) {
         const offset = (window.pageYOffset || document.documentElement.scrollTop);
-        let y = 150;
+        let y = 100;
         let x_space;
         let next_nodes = jsonData;
         let first_element;
@@ -110,17 +104,13 @@ function updateGraph() {
         let last_row_of_lines = [];
 
         for (let i = 0; i < path.length+1; i++) {
-            if (i == 0) {
-                next_nodes = next_nodes;
-            } else {
-                next_nodes = next_nodes[path[i-1]];
-            }
-            y += 50;
+            y += 75;
+            
+            next_nodes = i==0 ? next_nodes : next_nodes[path[i-1]];
             if (typeof next_nodes === 'object') {
                 x_space = window.innerWidth / (Object.keys(next_nodes).length + 1);
                 Object.entries(next_nodes).forEach(([key, _], index) => {
-                    let nx = x_space * (index + 1);
-                    const node = createNode(path.slice(0,i).concat([key]), nx, y, x_space, path.includes(key));
+                    const node = createNode(path.slice(0,i).concat([key]), x_space*(index+1), y, x_space, path.includes(key));
                     nodesContainer.appendChild(node)
                     y = node.getBoundingClientRect().bottom + node.getBoundingClientRect().height * .25 + offset;
                     if (path.includes(key)) {
@@ -140,8 +130,8 @@ function updateGraph() {
             } else {
                 const node = createNode([next_nodes], window.innerWidth / 2, y, window.innerWidth, true);
                 nodesContainer.appendChild(node)
-                y = node.getBoundingClientRect().bottom + node.getBoundingClientRect().height * .25 + offset;
                 nodeElements.push(node);
+                y = node.getBoundingClientRect().bottom + node.getBoundingClientRect().height * .25 + offset;
                 node.className = "node description";
                 node.id = "description";
                 last_row_of_lines.push(i === 1 ? [first_element, node] : [lineElements[lineElements.length - 1][1], node]);
@@ -150,16 +140,22 @@ function updateGraph() {
         lineElements = lineElements.concat(last_row_of_lines);
     }
 
+    // Clear the containers
     removeAllFromContainer(nodesContainer);
     removeAllFromContainer(linesContainer);
 
+    // Render the nodes and lines
     renderPath(currentPath);
 
+    // Create lines between nodes
+    // and add them to the lines container
     const get_deltas = ps => Math.abs(ps[0].x - ps[1].x);
     const minValue = Math.min(...lineElements.map(get_deltas).filter(d => d !== 0));
 
     lineElements.forEach(line => linesContainer.appendChild(createLine(...line, minValue)));
 
+    // Set the height of the separator
+    // to the maximum height of the nodes
     const y_scroll = (window.scrollY || window.pageYOffset);
     const get_y_max = node => node.getBoundingClientRect().bottom + y_scroll;
 
@@ -173,8 +169,7 @@ function updateGraph() {
 
 document.addEventListener('click', event => {
     if (event.target.classList.contains('node') && !event.target.classList.contains("description")) {
-        currentPath = event.target.path_to_this_node;
-        updateURL();
+        updateURL(event.target.path_to_this_node);
     }
 });
 

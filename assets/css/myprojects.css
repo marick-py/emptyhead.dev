@@ -245,29 +245,17 @@ body::-webkit-scrollbar-thumb {
     height: 0;
 }
 
-#sub-description .play-button .hidden {
+#sub-description .open-button .hidden {
     visibility: hidden;
 }
 
-#sub-description .play-button {
+#sub-description .open-button {
     margin-top: 100px;
     color: var(--primary-color);
     border-radius: 10px;
     background-color: var(--bg-color);
     text-decoration: none;
     font-size: 60px;
-    line-height: 100px;
-    padding: 10px;
-}
-
-#sub-description .show-button {
-    margin-top: 100px;
-    color: var(--primary-color);
-    border-radius: 10px;
-    background-color: var(--bg-color);
-    text-decoration: none;
-    font-size: 36px;
-    outline-width: 0;
     line-height: 100px;
     padding: 10px;
 }

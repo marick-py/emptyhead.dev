@@ -1,95 +1,74 @@
-// Get references to DOM elements
 const nodesContainer = document.getElementById('Nodes');
 const linesContainer = document.getElementById('Lines');
-const header = document.getElementById('local-header');
 
-let jsonData; // Variable to store JSON data
+let jsonData;
 
-// Calculate the top margin based on the header's bottom position
-const top_margin = header.getBoundingClientRect().bottom;
-
-// Fetch JSON data for the graph and initialize the graph
 fetch('assets/json/myprojects.json')
-    .then(response => response.json())
-    .then(data => {
-        jsonData = data;
-        updateGraph();
-    })
-    .catch(error => { console.error('Error loading JSON:', error); });
+.then(response => response.json())
+.then(data => {
+    jsonData = data;
+    updateGraph();
+})
+.catch(error => {console.error('Error loading JSON:', error);});
 
-// Variables to track the current path and the last rendered path
-let currentPath = ['My Projects (Work in progress)', 'Physics Simulations', 'Springs Simulation'];
-let lastCurrentPath = [];
+// HASH FUNCTIONS
+function getPathFromHash() {
+    const hash = decodeURIComponent(window.location.hash);
+    if (hash.startsWith('#/')) {
+        return hash.slice(2).split('/');
+    }
+    return ['My Projects'];
+}
+function updateURL(new_path) {
+    currentPath = new_path;
+    const newHash = '#/' + currentPath.map(encodeURIComponent).join('/');
+    if (window.location.hash !== newHash) {
+        window.location.hash = newHash;
+    }
+}
+window.addEventListener('hashchange', () => {
+    currentPath = getPathFromHash();
+    updateGraph();
+});
 
-// Path to descriptions and list of HTML scripts to load
-const descriptions_path = "assets\\projects\\descriptions\\";
+let currentPath = getPathFromHash();
+// GRAPH FUNCTIONS
+
+const descriptions_path = "assets\\projects\\descriptions\\"
 const html_scripts = ["springs.html", "uttt.html", "ttt.html"];
+let loaded_html_sprits = {}
 
-let nodeElements = []; // Array to store node elements
-
-// Utility function to compare two arrays for equality
-function arraysAreEqual(arr1, arr2) {
-    if (arr1.length !== arr2.length) {
-        return false;
-    }
-
-    for (let i = 0; i < arr1.length; i++) {
-        if (arr1[i] !== arr2[i]) {
-            return false;
+function loadDescription(description_name) {
+    return fetch(descriptions_path + description_name)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
+        return response.text();
+    })
+    .then(data => {
+        loaded_html_sprits[description_name] = data;
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
+}
+
+function updateGraph() {
+    let nodeElements = [];
+    let lineElements = [];
+
+    if (window.descriptionResizeObserver) {
+        window.descriptionResizeObserver.disconnect();
     }
 
-    return true;
-}
-
-// Function to load external HTML descriptions
-function loadDescription(externalHTMLUrl) {
-    // Fetch the HTML content and store it in `loaded_html_sprits`
-    // fetch(descriptions_path + externalHTMLUrl)
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             throw new Error('Network response was not ok');
-    //         }
-    //         return response.text();
-    //     })
-    //     .then(data => {
-    //         html_scripts.splice(html_scripts.indexOf(externalHTMLUrl));
-    //         loaded_html_sprits[externalHTMLUrl] = data;
-    //         updateGraph(); // Update the graph after loading
-    //     })
-    //     .catch(error => {
-    //         console.error('There was a problem with the fetch operation:', error);
-    //     });
-}
-
-// Function to update the height of the footer spacer
-function updateFooterHeight(nodes) {
-    console.log("setting height");
-    const y_scroll = (window.scrollY || window.pageYOffset);
-    const get_y_max = node => node.getBoundingClientRect().bottom + y_scroll;
-
-    const maxHeight = Math.max(...nodes.map(get_y_max));
-    const separator = document.getElementById("content-spacer");
-
-    let height = maxHeight - separator.getBoundingClientRect().top - y_scroll;
-
-    separator.style.height = `${Math.max(height, 0)}px`;
-}
-
-// Main function to update the graph
-function updateGraph(force_new_items = false) {
-    nodeElements = []; // Reset node elements
-    let lineElements = []; // Array to store line elements
-
-    // Helper function to remove all child nodes from a container
-    function removeAllNodes(container) {
+    function removeAllFromContainer(container) {
         while (container.firstChild) {
             container.removeChild(container.firstChild);
         }
     }
 
-    // Function to create a node element
-    function createNode(path_to_this_node, x, y, max_w, in_selected_path, index, num_of_nodes) {
+    function createNode(path_to_this_node, x, y, max_w, in_selected_path) {
         const node = document.createElement('div');
         if (in_selected_path) {
             node.className = 'node selected';
@@ -97,70 +76,59 @@ function updateGraph(force_new_items = false) {
             node.className = 'node';
         }
         node.style.left = `${x}px`;
-        node.style.top = `${y + top_margin}px`;
+        node.style.top = `${y}px`;
         node.style.maxWidth = `${max_w}px`;
         node.path_to_this_node = path_to_this_node;
-        node.textContent = path_to_this_node[path_to_this_node.length - 1];
+        node.textContent = path_to_this_node[path_to_this_node.length-1];
         node.x = x;
         node.y = y;
-        node.index = index;
-        node.num_of_nodes = num_of_nodes;
         return node;
     }
 
-    // Function to update the position and size of a node
-    function updateNode(node) {
-        let x_space = window.innerWidth / node.num_of_nodes;
-        let x = x_space * (node.index + 1);
-
-        node.style.left = `${x}px`;
-        node.style.maxWidth = `${x_space}px`;
-        node.x = x;
-    }
-
-    // Function to create a line element connecting two nodes
     function createLine(p1, p2, minDelta) {
         const line = document.createElement('div');
-        line.p1 = p1;
-        line.p2 = p2;
+        let style = line.style;
+
         const delta = p2.x - p1.x;
-        line.style.transformOrigin = `0px 0px`;
+        style.transformOrigin = `0px 0px`;
 
-        const y_delta = p2.y - p1.y;
-
+        const y_delta = p2.y - p1.y
+        
+        style.height = '2px';
+        style.left = `${p1.x}px`;
+        style.top = `${p1.y}px`;
+        
         if (delta == 0) {
             line.className = 'vertical-line';
 
-            line.style.width = `${Math.abs(p2.y - p1.y)}px`;
-            line.style.height = '2px';
-            line.style.left = `${p1.x}px`;
-            line.style.top = `${p1.y + top_margin}px`;
-            line.style.transform = `rotate(${Math.PI / 2}rad)`;
-
+            style.width = `${Math.abs(p2.y - p1.y)}px`;
+            style.transform = `rotate(${Math.PI/2}rad)`;
         } else {
-            line.style.height = '2px';
-            line.style.left = `${p1.x}px`;
-            line.style.top = `${p1.y + top_margin}px`;
-
             const absDelta = Math.abs(delta);
-            if (minDelta < y_delta) {
-                line.className = 'advanced-short-line';
-                line.style.setProperty('--after-before-size', `${minDelta / 2}px`);
-                line.style.setProperty('--after-before-size-2', `${y_delta / 2}px`);
-                line.style.width = `${absDelta - minDelta}px`;
-                line.style.transform = `scaleX(${(delta > 0) ? 1 : -1}) translate(${minDelta / 2}px, ${y_delta / 2}px)`;
-            } else {
-                line.className = 'advanced-line';
-                line.style.width = `${absDelta - y_delta}px`;
-                line.style.setProperty('--after-before-size', `${y_delta / 2}px`);
-                line.style.transform = `scaleX(${(delta > 0) ? 1 : -1}) translate(${y_delta / 2}px, ${y_delta / 2}px)`;
-            }
+
+            line.className = minDelta < y_delta ? 'advanced-short-line' : 'advanced-line';
+
+            style.setProperty('--after-before-size-2', `${y_delta/2}px`);
+            
+            current_delta = Math.min(minDelta, y_delta)
+            style.width = `${absDelta - current_delta}px`;
+            style.transform = `scaleX(${(delta > 0) ? 1 : -1}) translate(${current_delta/2}px, ${y_delta/2}px)`;
+            style.setProperty('--after-before-size', `${current_delta/2}px`);
         }
         return line;
     }
 
-    // Function to render the graph based on the current path
+    function adjustContentSpacer() {
+        const y_scroll = window.scrollY || window.pageYOffset;
+        const get_y_max = (node) => node.getBoundingClientRect().bottom + y_scroll;
+        const maxHeight = Math.max(...nodeElements.map(get_y_max));
+        const separator = document.getElementById('content-spacer');
+        let height = maxHeight - separator.getBoundingClientRect().top - y_scroll;
+        separator.style.height = `${Math.max(height, 0)}px`;
+    }
+
     function renderPath(path) {
+        const offset = (window.pageYOffset || document.documentElement.scrollTop);
         let y = 100;
         let x_space;
         let next_nodes = jsonData;
@@ -168,27 +136,22 @@ function updateGraph(force_new_items = false) {
 
         let last_row_of_lines = [];
 
-        for (let i = 0; i < path.length + 1; i++) {
-            if (i == 0) {
-                next_nodes = next_nodes;
-            } else {
-                next_nodes = next_nodes[path[i - 1]];
-            }
-            y += 50;
+        for (let i = 0; i < path.length+1; i++) {
+            y += 75;
+            
+            next_nodes = i==0 ? next_nodes : next_nodes[path[i-1]];
             if (typeof next_nodes === 'object') {
-                let num_of_nodes = (Object.keys(next_nodes).length + 1);
-                x_space = window.innerWidth / num_of_nodes;
-                Object.entries(next_nodes).forEach(([key, value], index) => {
-                    let nx = x_space * (index + 1);
-                    const node = createNode(path.slice(0, i).concat([key]), nx, y, x_space, path.includes(key), index, num_of_nodes);
-                    nodesContainer.appendChild(node);
-                    const nodeRect = node.getBoundingClientRect();
-                    y = nodeRect.bottom + (window.pageYOffset || document.documentElement.scrollTop) - nodeRect.height;
+                x_space = window.innerWidth / (Object.keys(next_nodes).length + 1);
+                Object.entries(next_nodes).forEach(([key, _], index) => {
+                    const node = createNode(path.slice(0,i).concat([key]), x_space*(index+1), y, x_space, path.includes(key));
+                    nodesContainer.appendChild(node)
+                    const rect = node.getBoundingClientRect();
+                    y = rect.bottom + rect.height * 0.25 + offset;
                     if (path.includes(key)) {
                         if (i != 0) {
                             lineElements.push(i === 1 ? [first_element, node] : [lineElements[lineElements.length - 1][1], node]);
                         } else {
-                            node.className = "node first-element";
+                            node.className = "node first-element"
                             first_element = node;
                         }
                     }
@@ -199,65 +162,72 @@ function updateGraph(force_new_items = false) {
                     nodeElements.push(node);
                 });
             } else {
-                const node = createNode([""], window.innerWidth / 2, y, window.innerWidth, true, -.5, 1);
-                node.className = "node description";
-                nodesContainer.appendChild(node);
+                const node = createNode([next_nodes], window.innerWidth / 2, y, window.innerWidth, true);
+                nodesContainer.appendChild(node)
                 nodeElements.push(node);
+                const rect = node.getBoundingClientRect();
+                y = rect.bottom + rect.height * 0.25 + offset;
+                node.className = "node description";
                 node.id = "description";
-                // node.innerHTML = loaded_html_sprits[next_nodes];
-                currentProgram = next_nodes;
-                y = node.getBoundingClientRect().bottom + (window.pageYOffset || document.documentElement.scrollTop) - node.getBoundingClientRect().height;
+
+                if (loaded_html_sprits[next_nodes]) {
+                    node.innerHTML = loaded_html_sprits[next_nodes];
+                
+                    window.descriptionResizeObserver = new ResizeObserver(() => {
+                        adjustContentSpacer();
+                    });
+                    window.descriptionResizeObserver.observe(node);
+                } else {
+                    node.innerHTML = '<em>Loading...</em>';
+                    
+                    loadDescription(next_nodes).then(() => {
+                        if (loaded_html_sprits[next_nodes]) {
+                            node.innerHTML = loaded_html_sprits[next_nodes];
+                            window.descriptionResizeObserver = new ResizeObserver(() => {
+                                adjustContentSpacer();
+                            });
+                            window.descriptionResizeObserver.observe(node);
+                            adjustContentSpacer();  // For good measure
+                        } else {
+                            node.innerHTML = '<em>Error loading content.</em>';
+                        }
+                    }).catch(() => {
+                        node.innerHTML = '<em>Error loading content.</em>';
+                    });
+                }
                 last_row_of_lines.push(i === 1 ? [first_element, node] : [lineElements[lineElements.length - 1][1], node]);
             }
         }
         lineElements = lineElements.concat(last_row_of_lines);
     }
 
-    // Check if the graph needs to be updated or just repositioned
-    if (false && arraysAreEqual(currentPath, lastCurrentPath) && (!force_new_items)) {
-        // Update existing nodes and lines
-        if (nodesContainer) {
-            Array.from(nodesContainer.children).forEach((child) => {
-                updateNode(child);
-            });
-        }
+    // Clear the containers
+    removeAllFromContainer(nodesContainer);
+    removeAllFromContainer(linesContainer);
 
-        removeAllNodes(linesContainer);
-        renderPath(currentPath);
-        const get_deltas = ps => Math.abs(ps[0].x - ps[1].x);
-        const minValue = Math.min(...lineElements.map(get_deltas).filter(d => d !== 0));
-        lineElements.forEach(line => linesContainer.appendChild(createLine(...line, minValue)));
-        updateFooterHeight(nodeElements);
-    } else {
-        // Re-render the graph from scratch
-        removeAllNodes(nodesContainer);
-        removeAllNodes(linesContainer);
+    // Render the nodes and lines
+    renderPath(currentPath);
 
-        renderPath(currentPath);
+    // Create lines between nodes
+    // and add them to the lines container
+    const get_deltas = ps => Math.abs(ps[0].x - ps[1].x);
+    const minValue = Math.min(...lineElements.map(get_deltas).filter(d => d !== 0));
 
-        const get_deltas = ps => Math.abs(ps[0].x - ps[1].x);
-        const minValue = Math.min(...lineElements.map(get_deltas).filter(d => d !== 0));
-        lineElements.forEach(line => linesContainer.appendChild(createLine(...line, minValue)));
+    lineElements.forEach(line => linesContainer.appendChild(createLine(...line, minValue)));
 
-        lastCurrentPath = currentPath; // Update the last rendered path
-    }
-    updateFooterHeight(nodeElements); // Update footer height
-    console.log("updated footer height");
+    // Set the height of the separator
+    // to the maximum height of the nodes
+    adjustContentSpacer();
 }
 
-// Event listener for click events on nodes and buttons
 document.addEventListener('click', event => {
     if (event.target.classList.contains('node') && !event.target.classList.contains("description")) {
-        currentPath = event.target.path_to_this_node; // Update the current path
-        updateGraph();
-    } else if (event.target.classList.contains("show-button")) {
-        event.preventDefault();
-        document.getElementById("code").classList.toggle('hidden'); // Toggle visibility of code
-        updateFooterHeight(nodeElements);
+        updateURL(event.target.path_to_this_node);
     }
 });
 
-// Event listener for window resize to update the graph
+let resizeTimeout;
 window.addEventListener('resize', () => {
-    updateGraph();
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(updateGraph, 100);
 });
