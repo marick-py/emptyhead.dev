@@ -17,7 +17,7 @@ function getPathFromHash() {
     if (hash.startsWith('#/')) {
         return hash.slice(2).split('/');
     }
-    return ['My Projects'];
+    return ['My Projects (Work in Progress)'];
 }
 function updateURL(new_path) {
     currentPath = new_path;
