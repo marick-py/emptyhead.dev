@@ -236,3 +236,14 @@ body::-webkit-scrollbar-thumb {
 @media (min-width:1281px) {
 	/* hi-res laptops and desktops */
 }
+
+@media (min-width: 961px) {
+	#quotes-box {
+		width: 40%;
+		margin: 0 auto;
+	}
+
+	.quotes-buttons {
+		width: 25%;
+	}
+}
