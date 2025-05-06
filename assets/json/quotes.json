@@ -1,0 +1,42 @@
+[
+    {
+      "quote": "There is nothing more deceptive than an obvious fact.",
+      "author": "Arthur Conan Doyle, Sherlock Holmes",
+      "image": "assets/images/sherlock.png"
+    },
+    {
+      "quote": "When you have eliminated all which is impossible, then whatever remains, however improbable, must be the truth.",
+      "author": "Arthur Conan Doyle, Sherlock Holmes",
+      "image": "assets/images/sherlock.png"
+    },
+    {
+      "quote": "The meaning of life is to give life meaning.",
+      "author": "Viktor Emil Frankl",
+      "image": "assets/images/viktor.png"
+    },
+    {
+      "quote": "It is not our abilities that show what we truly are… it is our choices.",
+      "author": "J.K. Rowling, Albus Dumbledore",
+      "image": "assets/images/dumbledore.png"
+    },
+    {
+      "quote": "Happiness can be found even in the darkest of times, if one only remembers to turn on the light.",
+      "author": "J.K. Rowling, Albus Dumbledore",
+      "image": "assets/images/dumbledore.png"
+    },
+    {
+      "quote": "Love is a Polaroid...\n\n Better in picture, but never can fill the void.",
+      "author": "Imagine Dragons, from Polaroid",
+      "image": "assets/images/imagine.png"
+    },
+    {
+      "quote": "In case I don't see ya, good afternoon, good evening, and goodnight.",
+      "author": "Jim Carrey, The Truman Show",
+      "image": "assets/images/trumanshow.png"
+    },
+    {
+      "quote": "Hell, as you call it, has always been the true heart of human religion.\n\nYou can curb the worst of your savageries only through collective fear and hatred of another world.",
+      "author": "White Rabbit, Devil May Cry",
+      "image": "assets/images/white-rabbit.png"
+    }
+]

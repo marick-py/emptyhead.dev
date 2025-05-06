@@ -5,7 +5,6 @@
     top: 0px;
     width: 100%;
 	min-height: 60px;
-	z-index: 10;
 	display: flex;
     justify-content: space-between;
     align-items: center;
@@ -14,6 +13,7 @@
 #local-header {
     position: relative;
     background-color: rgba(0, 0, 0, 0);
+    z-index: 10;
 }
 
 #global-header {
@@ -22,6 +22,7 @@
     background-color: rgba(0, 0, 0, .95);
     transition: top 0.3s ease-in-out;
 	border-bottom: 5px solid var(--normal-menu-separator-color);
+    z-index: 11;
 }
 
 #global-header.scrolled {
