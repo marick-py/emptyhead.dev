@@ -131,7 +131,7 @@ body::-webkit-scrollbar-thumb {
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
-	width: 100%;
+
 	padding: 1rem;
 	box-sizing: border-box;
 	z-index: 0;
@@ -228,22 +228,18 @@ body::-webkit-scrollbar-thumb {
 	/* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
 }
 @media (min-width:961px)  {
-	/* tablet, landscape iPad, lo-res laptops ands desktops */
+	#quotes-box {
+		width: 60%;
+		margin: 0 auto;
+	}
+
+	.quotes-buttons {
+		width: 35%;
+	}
 }
 @media (min-width:1025px) {
 	/* big landscape tablets, laptops, and desktops */
 }
 @media (min-width:1281px) {
 	/* hi-res laptops and desktops */
-}
-
-@media (min-width: 961px) {
-	#quotes-box {
-		width: 40%;
-		margin: 0 auto;
-	}
-
-	.quotes-buttons {
-		width: 25%;
-	}
 }

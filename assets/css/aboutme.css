@@ -90,12 +90,16 @@ body::-webkit-scrollbar-thumb {
     color: white;
     position: absolute;
     font-size: 12px;
+    font-family: Quicksand, sans-serif;
     cursor: pointer;
+    background-color: var(--bg-color-dark-shade-1);
+    border: 2px solid var(--bg-color-light-shade-2);
+    
     text-align: center;
-    margin: 10px;
+    margin: 0px;
     z-index: 1;
     border-radius: 10px;
-    padding: 10px;
+    padding: 5px;
     transition: color 0.2s ease-in-out;
 }
 
@@ -125,7 +129,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .last-row {
-    border: 2px solid var(--secondary-color);
+    border: 2px solid var(--secondary-color-dark-shade-1);
 }
 
 .description {

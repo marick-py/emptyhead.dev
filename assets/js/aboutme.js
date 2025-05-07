@@ -45,7 +45,7 @@ function updateGraph() {
     }
 
     function createNode(path_to_this_node, x, y, max_w, in_selected_path) {
-        const node = document.createElement('div');
+        const node = document.createElement('button');
         if (in_selected_path) {
             node.className = 'node selected';
         } else {

@@ -2,41 +2,56 @@
     {
       "quote": "There is nothing more deceptive than an obvious fact.",
       "author": "Arthur Conan Doyle, Sherlock Holmes",
-      "image": "assets/images/sherlock.png"
+      "image": "assets/images/quote-authors/sherlock.png"
     },
     {
       "quote": "When you have eliminated all which is impossible, then whatever remains, however improbable, must be the truth.",
       "author": "Arthur Conan Doyle, Sherlock Holmes",
-      "image": "assets/images/sherlock.png"
+      "image": "assets/images/quote-authors/sherlock.png"
     },
     {
       "quote": "The meaning of life is to give life meaning.",
       "author": "Viktor Emil Frankl",
-      "image": "assets/images/viktor.png"
+      "image": "assets/images/quote-authors/viktor.png"
     },
     {
       "quote": "It is not our abilities that show what we truly are… it is our choices.",
       "author": "J.K. Rowling, Albus Dumbledore",
-      "image": "assets/images/dumbledore.png"
+      "image": "assets/images/quote-authors/dumbledore.png"
     },
     {
       "quote": "Happiness can be found even in the darkest of times, if one only remembers to turn on the light.",
       "author": "J.K. Rowling, Albus Dumbledore",
-      "image": "assets/images/dumbledore.png"
+      "image": "assets/images/quote-authors/dumbledore.png"
     },
     {
       "quote": "Love is a Polaroid...\n\n Better in picture, but never can fill the void.",
       "author": "Imagine Dragons, from Polaroid",
-      "image": "assets/images/imagine.png"
+      "image": "assets/images/quote-authors/imagine.png"
     },
     {
       "quote": "In case I don't see ya, good afternoon, good evening, and goodnight.",
       "author": "Jim Carrey, The Truman Show",
-      "image": "assets/images/trumanshow.png"
+      "image": "assets/images/quote-authors/trumanshow.png"
     },
     {
       "quote": "Hell, as you call it, has always been the true heart of human religion.\n\nYou can curb the worst of your savageries only through collective fear and hatred of another world.",
       "author": "White Rabbit, Devil May Cry",
-      "image": "assets/images/white-rabbit.png"
+      "image": "assets/images/quote-authors/white-rabbit.png"
+    },
+    {
+      "quote": "Nulla è reale, tutto è lecito.\n\nNothing is real, everything is permitted.",
+      "author": "Ezio Auditore, Assassin's Creed, (Frederick Nietzsche)",
+      "image": "assets/images/quote-authors/ezio-nietzsche.png"
+    },
+    {
+      "quote": "What you are not is actually what people will assume of you at first.",
+      "author": "Ezio Auditore, Assassin's Creed",
+      "image": "assets/images/quote-authors/ezio.png"
+    },
+    {
+      "quote": "Ok. 👍",
+      "author": "Rammus, League of Legends",
+      "image": "assets/images/quote-authors/rammus.png"
     }
 ]

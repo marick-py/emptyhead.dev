@@ -32,37 +32,39 @@
           "Maintenance": "Actively maintained and updated with custom features and performance improvements."
         }
       },
-      "Collaboration": {
+      "Collabs": {
         "GitHub": "I use GitHub for project sharing, version control, and collaborative development.",
         "Community": "I engage with other programmers by publishing code, discussing issues, and reviewing PRs."
       },
-      "High School Python Lessons": "I'm leading a series of extracurricular lessons on Python fundamentals at my school, covering topics from basic syntax to functions and algorithms."
+      "School Python Lessons": "I'm leading a series of extracurricular lessons on Python fundamentals at my school, covering topics from basic syntax to functions and algorithms."
     },
-    "Simulation Work": {
-      "Focus": {
-        "High Performance": {
-          "Particle Engines": "I'm working on particle simulations with up to 30k particles rendered at stable FPS.",
-          "Optimization": "Utilizing NumPy, Numba, and Cython to optimize array-heavy computations."
+    "Experience": {
+      "Simulation Work": {
+        "Focus": {
+          "High Performance": {
+            "Particle Engines": "I'm working on particle simulations with up to 30k particles rendered at stable FPS.",
+            "Optimization": "Utilizing NumPy, Numba, and Cython to optimize array-heavy computations."
+          }
+        },
+        "Physics Models": {
+          "Mechanics": "Simulations involve collision dynamics, gravitational fields, and constraint-based forces.",
+          "Numerical Methods": "I apply vectorized math and iterative algorithms for realistic motion behavior."
         }
       },
-      "Physics Models": {
-        "Mechanics": "Simulations involve collision dynamics, gravitational fields, and constraint-based forces.",
-        "Numerical Methods": "I apply vectorized math and iterative algorithms for realistic motion behavior."
-      }
-    },
-    "AI Experience": {
-      "Algorithms": {
-        "Reinforcement": "I've built multiple Q-learning agents across various environments.",
-        "Neural Networks": "I experimented with PyTorch and TensorFlow to model deep-learning tasks.",
-        "NEAT": "Used NEAT for evolving AI behavior in game-like environments and simulations."
-      },
-      "Application Areas": {
-        "Image Recognition": "Applied convolutional architectures to classify image content.",
-        "Natural Language": "Built language models and basic chatbots using NLP techniques.",
-        "Projects Ratio": "Approximately 30% of my total projects include AI-related implementations."
-      },
-      "Ethical Concerns": {
-        "Reflection": "I consider the risks and ethics of automation, data use, and unintended biases in AI."
+      "AI Experience": {
+        "Algorithms": {
+          "Reinforcement": "I've built multiple Q-learning agents across various environments.",
+          "Neural Networks": "I experimented with PyTorch and TensorFlow to model deep-learning tasks.",
+          "NEAT": "Used NEAT for evolving AI behavior in game-like environments and simulations."
+        },
+        "Application Areas": {
+          "Image Recognition": "Applied convolutional architectures to classify image content.",
+          "Natural Language": "Built language models and basic chatbots using NLP techniques.",
+          "Projects Ratio": "Approximately 30% of my total projects include AI-related implementations."
+        },
+        "Ethical Concerns": {
+          "Reflection": "I consider the risks and ethics of automation, data use, and unintended biases in AI."
+        }
       }
     },
     "Tools": {
