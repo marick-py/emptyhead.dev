@@ -44,7 +44,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		const unused = quotesData.filter(({ quote, author }) =>
 			!shownQuotes.has(quote + '|' + author)
 		);
-		if (unused.length === 0) return null;
+		if (unused.length === 0) return null, 0;
+		if (unused.length === 1) addBtn.disabled = true;
 		const index = Math.floor(Math.random() * unused.length);
 		return unused[index];
 	}
@@ -56,6 +57,13 @@ document.addEventListener("DOMContentLoaded", () => {
 		})
 		.then(data => {
 			quotesData = data;
+
+			const imagePaths = [...new Set(data.map(item => item.image))];
+			imagePaths.forEach(path => {
+				const img = new Image();
+				img.src = path;
+			});
+
 			const first = getUnusedQuote();
 			if (first) {
 				shownQuotes.add(first.quote + '|' + first.author);
@@ -68,10 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	addBtn.addEventListener('click', () => {
 		const quote = getUnusedQuote();
-		if (!quote) {
-			addBtn.disabled = true;
-			return;
-		}
+		if (!quote) return;
 		shownQuotes.add(quote.quote + '|' + quote.author);
 		addQuote(quote);
 	});

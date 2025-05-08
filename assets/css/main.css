@@ -126,91 +126,6 @@ body::-webkit-scrollbar-thumb {
 	background: linear-gradient(to bottom, rgba(0, 0, 0, 0), var(--bg-color));
 }
 
-/* Quotes */
-#quotes-box {
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-
-	padding: 1rem;
-	box-sizing: border-box;
-	z-index: 0;
-}
-
-.quote-box {
-	position: relative;
-	padding: 1.5rem 1rem;
-	/* margin-bottom: 2rem; */
-	box-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
-	border-radius: 20px;
-	background-blend-mode: overlay;
-	background-repeat: no-repeat;
-	background-size: auto 100%;
-	background-position: right center;
-}
-
-.quote-text {
-	color: lightgrey;
-	font-size: 1.25rem;
-	z-index: 1;
-	position: relative;
-}
-.quote-text.left {
-	text-align: right;
-}
-.quote-text.right {
-	text-align: left;
-}
-
-.quote-author {
-	text-align: right;
-	color: var(--secondary-color-dark-shade-1);
-	margin-top: 1rem;
-	font-style: italic;
-	font-size: 1rem;
-	z-index: 1;
-	position: relative;
-}
-.quote-author.left {
-	text-align: left;
-}
-.quote-author.right {
-	text-align: right;
-}
-
-/* Quote Buttons */
-
-.quotes-buttons {
-	display: flex;
-	justify-content: space-between;
-	width: 75%;
-	margin: 1rem auto 5rem auto;
-	gap: 1rem;
-}
-
-.quotes-buttons button {
-	padding: 1rem;
-	border: 2px solid var(--primary-color-dark-shade-2);
-	border-radius: 10px;
-	font-size: 1rem;
-	cursor: pointer;
-	background-color: transparent;
-	color: white;
-	transition: border 0.2s ease;
-}
-
-#add-quote-btn {
-	flex: 3;
-}
-
-#reset-quotes-btn {
-	flex: 1;
-}
-
-.quotes-buttons button:hover {
-	border: 2px solid var(--secondary-color-dark-shade-1);
-}
-
 /* Chat */
 
 #chat-system {
@@ -228,14 +143,7 @@ body::-webkit-scrollbar-thumb {
 	/* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
 }
 @media (min-width:961px)  {
-	#quotes-box {
-		width: 60%;
-		margin: 0 auto;
-	}
-
-	.quotes-buttons {
-		width: 35%;
-	}
+	/* tablet, landscape iPad, lo-res laptops and desktops */
 }
 @media (min-width:1025px) {
 	/* big landscape tablets, laptops, and desktops */
