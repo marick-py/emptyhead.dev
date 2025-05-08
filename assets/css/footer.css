@@ -29,16 +29,24 @@ footer {
 .footer-links li {
     display: inline;
     margin: 0 10px;
+    /* background-color: transparent; */
 }
 
-.footer-links a {
+.footer-links a,
+.footer-links button {
+	background: none;
+    font: inherit;
+	border: none;
+	cursor: pointer;
+
     text-decoration: none;
 	color: white;
-	transition: color 0.2s ease-in-out;
+	transition: color 0.2s ease-in-out;;
 }
 
-.footer-links a:hover {
-	color: var(--primary-color);
+.footer-links a:hover,
+.footer-links button:hover {
+    color: var(--primary-color);
 }
 
 .footer-content p {
@@ -60,4 +68,8 @@ footer {
 
 .social-links .fa:hover {
     color: var(--primary-color);
+}
+
+.social-links .fa.glow {
+	color: var(--primary-color) !important;
 }

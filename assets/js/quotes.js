@@ -1,8 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
+	const quotesButtonMenu = document.querySelector('.quotes-menu-button');
+	const container = document.getElementById('quotes-box');
+
+	quotesButtonMenu.addEventListener('click', event => {
+		event.preventDefault();
+		closeMenu();
+		window.scrollTo({
+			top: container.offsetTop - 200,
+			behavior: "smooth"
+		});
+	});
+
 	let quotesData = [];
 	let shownQuotes = new Set();
 
-	const container = document.getElementById('quotes-box');
 	const addBtn = document.getElementById('add-quote-btn');
 	const resetBtn = document.getElementById('reset-quotes-btn');
 

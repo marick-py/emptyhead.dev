@@ -3,10 +3,13 @@ const globalHeader = document.getElementById('global-header');
 const localHeader = document.getElementById('local-header');
 const menuOverlay = document.getElementsByClassName('overlay');
 
-const contactButtonCss = document.querySelector('.contact-button');
+const contactButtonMenu = document.querySelector('.contact-button');
 
 const menuOverlayCss = document.querySelector('.overlay');
 const lateralMenuCss = document.querySelector('#menu');
+
+const contactBtn = document.querySelector(".footer-contact-button");
+const icons = document.querySelectorAll(".social-links .fa");
 
 function closeMenu() {
 	menuOverlayCss.classList.toggle('open');
@@ -15,17 +18,17 @@ function closeMenu() {
 
 [...menuToggles, ...menuOverlay].forEach(menuToggle => {
 	menuToggle.addEventListener('click', () => {
-        closeMenu()
+		closeMenu()
 	});
 });
 
-contactButtonCss.addEventListener('click', function(event) {
+contactButtonMenu.addEventListener('click', event => {
 	event.preventDefault();
-	closeMenu()
+	closeMenu();
 	const documentHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
 	window.scrollTo({
-	  top: documentHeight,
-	  behavior: "smooth"
+		top: documentHeight,
+		behavior: "smooth"
 	});
 });
 
@@ -46,3 +49,13 @@ window.addEventListener('click', event => {
 		globalHeader.classList.toggle('scrolled');
     }
 });
+
+contactBtn.addEventListener("click", event => {
+	event.preventDefault();
+	icons.forEach(icon => icon.classList.add("glow"));
+	setTimeout(() => {
+		icons.forEach(icon => icon.classList.remove("glow"));
+	}, 1000);
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
