@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>EmptyHead | Policy & Terms</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/png" href="assets/images/favicon.png" sizes="32x32" />
+	<meta name="description" content="Privacy Policy and Terms of Use for EmptyHead website." />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="assets/css/variables.css" />
+	<link rel="stylesheet" href="assets/css/header.css" />
+	<link rel="stylesheet" href="assets/css/menu.css" />
+	<link rel="stylesheet" href="assets/css/footer.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+	<!-- Header -->
+	<header id="global-header" class="header scrolled">
+		<div class="logo"><a href="/">EmptyHead <span class="by">by marick</span></a></div>
+		<button id="menu-toggle" class="menu-toggle"><i class="fa-solid fa-bars"></i></button>
+	</header>
+
+	<!-- Nav -->
+	<div class="overlay"></div>
+	<nav id="menu">
+		<ul id="menu-buttons" class="links">
+			<li><a href="/" class="home-button"><i class="fas fa-home"></i> Home</a></li>
+			<li><a href="aboutme.html" class="about-button"><i class="fas fa-info-circle"></i> About Me</a></li>
+			<li><a href="myprojects.html" class="projects-button"><i class="fas fa-folder-open"></i> My Projects</a></li>
+			<li><a href="#"><i class="fas fa-cogs"></i> Services</a></li>
+			<li><a href="#" class="contact-button"><i class="fas fa-envelope"></i> Contact</a></li>
+		</ul>
+	</nav>
+
+	<!-- Banner Image -->
+	<div class="banner">
+		<header id="local-header" class="header">
+			<div class="logo"><a href="/">EmptyHead <span class="by">by marick</span></a></div>
+			<button id="menu-toggle" class="menu-toggle"><i class="fas fa-bars"></i></button>
+		</header>
+		<img src="assets/images/banner.jpg" alt="Banner Image" oncontextmenu="return false;" draggable="false">
+		<div class="fading-overlay"></div>
+	</div>
+
+	<!-- Main Content -->
+	<main style="padding: 4rem 2rem; max-width: 1000px; margin: auto; color: white;">
+		<section id="policy">
+			<h2>Privacy Policy</h2>
+			<p>This website does not collect personal data unless explicitly submitted by the user (e.g., through contact forms or third-party embeds). We do not use cookies for tracking or personalized ads.</p>
+			<p>All user interactions remain anonymous unless external platforms like GitHub or Instagram are used. Any data submitted through external services (e.g., Giscus comments or Elfsight apps) is governed by their respective privacy policies.</p>
+			<p>We reserve the right to update this privacy policy at any time. Any changes will be posted on this page.</p>
+		</section>
+
+		<hr style="margin: 4rem 0; border: 1px solid #888;" />
+
+		<section id="terms">
+			<h2>Terms of Use</h2>
+			<p>By using this website, you agree to do so only for lawful purposes. You may not use this site in a way that infringes the rights of others, is unlawful, or interferes with the proper operation of the site.</p>
+			<p>All content shared on this site is provided for educational and informational purposes only. Unless otherwise specified, the intellectual property belongs to the author and is not to be redistributed without explicit permission.</p>
+			<p>We provide no warranties or guarantees on the availability or reliability of this site. Use it at your own risk.</p>
+		</section>
+	</main>
+
+	<!-- Footer -->
+	<footer class="top-footer">
+		<div class="social-links">
+			<a href="https://discord.com/users/589449750382903315" target="_blank"><i class="fa fa-discord"></i></a>
+			<a href="https://github.com/marick-py" target="_blank"><i class="fa fa-github"></i></a>
+			<a href="https://stackoverflow.com/users/15393950/marick" target="_blank"><i class="fa fa-stack-overflow"></i></a>
+			<a href="mailto:ricomari2006@gmail.com" target="_blank"><i class="fa fa-envelope"></i></a>
+			<a href="https://instagram.com/m.rikk_" target="_blank"><i class="fa fa-instagram"></i></a>
+		</div>
+	</footer>
+
+	<footer class="bottom-footer">
+		<div class="footer-content">
+			<ul class="footer-links">
+				<li><a href="policy_terms.html">Privacy Policy</a></li>
+				<li><a href="policy_terms.html">Terms of Use</a></li>
+				<li><a href="#">Contact Us</a></li>
+			</ul>
+			<p>&copy; <span id="year"></span> emptyhead.dev. All rights reserved.</p>
+		</div>
+	</footer>
+
+	<script src="assets/js/main.js"></script>
+	<script src="https://static.elfsight.com/platform/platform.js" async></script>
+	<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
