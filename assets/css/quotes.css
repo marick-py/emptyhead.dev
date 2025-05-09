@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;700&display=swap");
+
 /* Quotes */
 #quotes-box {
 	display: flex;
@@ -53,7 +55,7 @@
 /* Quote Buttons */
 
 .quotes-buttons {
-	display: flex;
+    display: flex;
 	justify-content: space-between;
 	width: 75%;
 	margin: 1rem auto 5rem auto;
@@ -61,6 +63,7 @@
 }
 
 .quotes-buttons button {
+    font-family: Quicksand, sans-serif;
 	padding: 1rem;
 	border: 2px solid var(--primary-color-dark-shade-2);
 	border-radius: 10px;
