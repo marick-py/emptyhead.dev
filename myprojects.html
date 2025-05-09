@@ -26,6 +26,7 @@
         
         <link rel="stylesheet" href="assets/css/myprojects.css" />
         
+        <link rel="stylesheet" href="assets/css/loading-screen.css" />
         <link rel="stylesheet" href="assets/css/variables.css" />
         <link rel="stylesheet" href="assets/css/header.css" />
         <link rel="stylesheet" href="assets/css/menu.css" />
@@ -34,7 +35,11 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
 
-    <body>
+    <body class="loading">
+        <div id="loading-screen">
+            <div class="spinner"></div>
+        </div>
+        
         <!-- Header -->
         <header id="global-header" class="header scrolled">
             <div class="logo"><a href="/">EmptyHead <span class="by">by marick</span></a></div>
