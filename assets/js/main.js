@@ -17,7 +17,7 @@ window.addEventListener("load", () => {
 	if (loadingScreen) {
 		loadingScreen.style.opacity = '0';
 		loadingScreen.style.pointerEvents = 'none';
-		setTimeout(() => loadingScreen.remove(), 500);
+		setTimeout(() => loadingScreen.remove(), 1500);
 	}
 });
 
