@@ -12,14 +12,22 @@ const contactBtn = document.querySelector(".footer-contact-button");
 const icons = document.querySelectorAll(".social-links .fa");
 
 window.addEventListener("load", () => {
-	// document.body.classList.remove('loading');
-	// const loadingScreen = document.getElementById('loading-screen');
-	// if (loadingScreen) {
-	// 	loadingScreen.style.opacity = '0';
-	// 	loadingScreen.style.pointerEvents = 'none';
-	// 	setTimeout(() => loadingScreen.remove(), 500);
-	// }
+	document.body.classList.remove('loading');
+	const loadingScreen = document.getElementById('loading-screen');
+	if (loadingScreen) {
+		loadingScreen.style.opacity = '0';
+		loadingScreen.style.pointerEvents = 'none';
+		setTimeout(() => loadingScreen.remove(), 500);
+	}
 });
+
+const loadingText = document.getElementById("loading-text");
+let dots = 1;
+
+setInterval(() => {
+    dots = (dots % 3) + 1;
+    loadingText.textContent = "loading" + ".".repeat(dots);
+}, 250);
 
 function closeMenu() {
 	menuOverlayCss.classList.toggle('open');

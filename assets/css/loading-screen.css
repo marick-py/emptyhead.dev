@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;700&display=swap");
+
 body.loading {
   overflow: hidden;
 }
@@ -10,49 +12,81 @@ body.loading {
     height: 100vh;
     background-color: black;
     z-index: 9999;
+
+    display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
-/* 
+
 .loading-text {
     color: white;
-    font-family: sans-serif;
-    font-size: 1.2rem;
-    margin-top: 1rem;
-} */
+    font-family: Quicksand, sans-serif;
+    font-size: 1.5rem;
+    margin-top: 3rem;
+    opacity: 0;
+    animation: fadeIn 2s ease-in forwards;
+}
 
 .spinner {
-  width: 88px;
-  height: 12px;
-  --_g: no-repeat radial-gradient(farthest-side,#000 94%,#0000);
-  background:
-    var(--_g) 25% 0,
-    var(--_g) 75% 0;
-  background-size: 12px 12px;
-  position: relative;
-  animation: l24-0 1s linear infinite;
+    transform: rotateZ(45deg);
+    perspective: 1000px;
+    border-radius: 50%;
+    width: 96px;
+    height: 96px;
+    color: var(--primary-color);
+    --width: 1em;
+    --neg-width: calc(var(--width) * -1);
 }
-.spinner:before {
-  content: "";
-  position: absolute;
-  height: 12px;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: #000;
-  inset: 0;
-  margin: auto;
-  animation: l24-1 1s cubic-bezier(0.5,300,0.5,-300) infinite;
+
+.spinner:before,
+.spinner:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: inherit;
+    height: inherit;
+    border-radius: 50%;
+    transform: rotateX(70deg);
+    /* box-shadow: 0 0 0 1px currentColor; */
+    opacity: 0;
+    animation: fadeIn .5s ease-in forwards, spin 1s linear infinite;    
 }
-@keyframes l24-0 {
-  0%,24%  {background-position: 25% 0,75% 0}
-  40%     {background-position: 25% 0,85% 0}
-  50%,72% {background-position: 25% 0,75% 0}
-  90%     {background-position: 15% 0,75% 0}
-  100%    {background-position: 25% 0,75% 0}
+.spinner:after {
+    color: var(--secondary-color);
+    transform: rotateY(70deg);
+    animation-delay: .4s;
 }
-@keyframes l24-1 {
-  100% {transform:translate(0.1px)}
+
+@keyframes fadeIn {
+    to {opacity: 1;}
 }
+
+@keyframes rotate {
+0% {transform: translate(-50%, -50%) rotateZ(0deg);}
+100% {transform: translate(-50%, -50%) rotateZ(360deg);}
+}
+
+@keyframes rotateccw {
+0% {transform: translate(-50%, -50%) rotate(0deg);}
+100% {transform: translate(-50%, -50%) rotate(-360deg);}
+}
+
+@keyframes spin {
+0% {box-shadow: var(--width) 0 0 0 currentcolor;}
+12% {box-shadow: var(--width) var(--width) 0 0 currentcolor;}
+25% {box-shadow: 0 var(--width) 0 0 currentcolor;}
+37% {box-shadow: var(--neg-width) var(--width) 0 0 currentcolor;}
+50% {box-shadow: var(--neg-width) 0 0 0 currentcolor;}
+62% {box-shadow: var(--neg-width) var(--neg-width) 0 0 currentcolor;}
+75% {box-shadow: 0 var(--neg-width) 0 0 currentcolor;}
+87% {box-shadow: var(--width) var(--neg-width) 0 0 currentcolor;}
+100% {box-shadow: var(--width) 0 0 0 currentcolor;}
+}
+
 
 /* .spinner {
     margin-top: 20vh;
