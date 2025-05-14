@@ -63,5 +63,15 @@
       "quote": "The greatness of a man is not in how much wealth he acquires, but in his integrity and his ability to affect those around him positively.",
       "author": "Bob Marley",
       "image": "assets/images/quote-authors/bob-marley.webp"
+    },
+    {
+      "quote": "To live is to risk it all, otherwise you’re just an inert chunk of randomly assembled molecules drifting wherever the universe blows you.",
+      "author": "Rick Sanchez, Rick and Morty",
+      "image": "assets/images/quote-authors/rick.webp"
+    },
+    {
+      "quote": "Only those who dare may fly",
+      "author": "Luis Sepúlveda",
+      "image": "assets/images/quote-authors/sepulveda.webp"
     }
 ]

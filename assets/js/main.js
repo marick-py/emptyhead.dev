@@ -12,13 +12,13 @@ const contactBtn = document.querySelector(".footer-contact-button");
 const icons = document.querySelectorAll(".social-links .fa");
 
 window.addEventListener("load", () => {
-	document.body.classList.remove('loading');
-	const loadingScreen = document.getElementById('loading-screen');
-	if (loadingScreen) {
-		loadingScreen.style.opacity = '0';
-		loadingScreen.style.pointerEvents = 'none';
-		setTimeout(() => loadingScreen.remove(), 500);
-	}
+	// document.body.classList.remove('loading');
+	// const loadingScreen = document.getElementById('loading-screen');
+	// if (loadingScreen) {
+	// 	loadingScreen.style.opacity = '0';
+	// 	loadingScreen.style.pointerEvents = 'none';
+	// 	setTimeout(() => loadingScreen.remove(), 500);
+	// }
 });
 
 function closeMenu() {
