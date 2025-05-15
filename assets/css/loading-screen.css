@@ -28,7 +28,7 @@ body.loading {
     width: 96px;
     height: 96px;
     color: var(--primary-color);
-    --width: 1em;
+    --width: .5em;
     --neg-width: calc(var(--width) * -1);
 }
 
