@@ -21,14 +21,6 @@ window.addEventListener("load", () => {
 	}
 });
 
-const loadingText = document.getElementById("loading-text");
-let dots = 1;
-
-setInterval(() => {
-    dots = (dots % 3) + 1;
-    loadingText.textContent = "loading" + ".".repeat(dots);
-}, 250);
-
 function closeMenu() {
 	menuOverlayCss.classList.toggle('open');
 	lateralMenuCss.classList.toggle('open');
