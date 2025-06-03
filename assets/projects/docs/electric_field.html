@@ -55,6 +55,7 @@
                 <li><a href="aboutme.html" class="about-button"><i class="fas fa-info-circle"></i>  About Me</a></li>
                 <li><a href="myprojects.html" class="projects-button"><i class="fas fa-folder-open"></i>  My Projects</a></li>
                 <li><a href="#" class="contact-button"><i class="fas fa-envelope"></i>  Contact</a></li>
+                <li><a href="https://ko-fi.com/N4N01FXMFF" class="support-button" target="_blank" rel="noopener"><i class="fas fa-heart"></i>  Support Me</a></li>
             </ul>
             <div class="elfsight-app-d3b5fda8-aeb8-4294-b291-69d46671e8b5 counter" data-elfsight-app-lazy></div>
         </nav>
@@ -82,8 +83,10 @@
                     the invisible electric interactions that govern charged particles.
                 </p>
 
-                <img src="../../../assets/images/projects/electric_field/electric_field_screenshot_2025_06_02_21_07_52.webp"
-                    alt="Electric Field Screenshot" class="project-image" />
+                <video controls poster="../../../assets/images/projects/electric_field/electric_field_screenshot_2025_06_02_21_07_52.webp" class="project-video">
+                    <source src="../../../assets/videos/projects/electric_field/efield.webm" type="video/webm">
+                    Your browser does not support the video tag.
+                </video>
 
                 <h2>🔑 Key Features</h2>
                 <ul>
@@ -127,7 +130,7 @@ add - charged orb at mouse  - G</code></pre>
                 <p>
                     The core of this simulator lies in <scode>compute_field_lines</scode>, a vectorized routine that
                     calculates the trajectory of electric field lines by summing the interactions from all
-                    point charges at each integration step. This simulates the path that a positive test particle would follow under electrostatic forces.
+                    point charges at each integration step. This simulates the path that a positive or a negative test particle would follow under electrostatic forces.
                 </p>
 
                 <pre><code class="python">@njit(parallel=True, fastmath=True)
@@ -229,6 +232,7 @@ for c in range(CHARGES_COUNT):
                     <li>
                         <strong><scode>CHARGES_PROBABILITY_FUNC</scode></strong>: <br>
                         <span class="desc"><a href="https://www.desmos.com/calculator/o96rfcqrgu" target="_blank" style="color: var(--primary-color-dark-shade-1);">Custom lambda function</a> to skew the distribution of charge positions for more interesting setups.</span>
+                        <!-- <iframe src="https://www.desmos.com/calculator/6vrqhyiruq?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe> -->
                         <span class="effect">Clusters charges at visually/physically interesting locations.</span>
                     </li>
                     <li>
@@ -871,8 +875,27 @@ def compute_field_lines(origins_xs: np.ndarray,
                     🔗 View Project on GitHub
                     </a>
                 </div>
+                <div id="chat-system">
+                    <script src="https://giscus.app/client.js"
+                    data-repo="marick-py/emptyhead.dev"
+                    data-repo-id="R_kgDOOaqypg"
+                    data-category="General"
+                    data-category-id="DIC_kwDOOaqyps4CpKFf"
+                    data-mapping="url"
+                    data-strict="0"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="dark"
+                    data-lang="en"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                    </script>
+                </div>
             </div>
         </section>
+
 
 		<!-- Footer -->
 		<footer class="top-footer">
