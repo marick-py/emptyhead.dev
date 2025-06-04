@@ -100,16 +100,23 @@ async function main() {
 
     const diff = currentToday - yesterdayCount;
     const diffElem = document.getElementById("today-diff");
-    const diffValueElem = document.getElementById("today-diff-count");
+    const diffCount = document.getElementById("today-diff-count");
+    const diffArrow = document.getElementById("today-diff-arrow");
 
-    if (diff >= 0) {
+    if (diff > 0) {
         diffElem.classList.remove("down");
         diffElem.classList.add("up");
-        diffValueElem.textContent = "+" + diff;
-    } else {
+        diffCount.textContent = `(+${diff})`;
+        diffArrow.className = "fas fa-arrow-up";
+    } else if (diff < 0) {
         diffElem.classList.remove("up");
         diffElem.classList.add("down");
-        diffValueElem.innerHTML = diff;
+        diffCount.textContent = `(${diff})`; // già negativo
+        diffArrow.className = "fas fa-arrow-down";
+    } else {
+        diffElem.classList.remove("up", "down");
+        diffCount.textContent = "(0)";
+        diffArrow.style.display = "none";
     }
     
     document.getElementById("counter-title").textContent = "Visits stats.";

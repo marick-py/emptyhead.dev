@@ -57,6 +57,42 @@
 				<li><a href="#" class="contact-button"><i class="fas fa-envelope"></i> Contact</a></li>
                 <li><a href="https://ko-fi.com/N4N01FXMFF" class="support-button" target="_blank" rel="noopener"><i class="fas fa-heart"></i>  Support Me</a></li>
 			</ul>
+
+			<!-- Counter -->
+			<div id="stats-panel" class="stats">
+				<h3 id="counter-title">Visits stats (Loading...)</h3>
+
+				<div class="stat-item">
+					<span class="label">Today</span>
+					<span class="value-with-diff">
+						<span class="value" id="today-count">0</span>
+						<span class="diff" id="today-diff">
+							<span id="today-diff-count">(+0)</span>
+							<i id="today-diff-arrow" class="fas fa-arrow-up"></i>
+						</span>
+					</span>
+				</div>
+
+				<div class="stat-item">
+					<span class="label">Yesterday</span>
+					<span class="value" id="yesterday-count">0</span>
+				</div>
+
+				<div class="stat-item">
+					<span class="label">This Week</span>
+					<span class="value" id="week-count">0</span>
+				</div>
+
+				<div class="stat-item">
+					<span class="label">This Month</span>
+					<span class="value" id="month-count">0</span>
+				</div>
+
+				<div class="stat-item total-total">
+					<span class="label">Total</span>
+					<span class="value" id="total-count">0</span>
+				</div>
+			</div>
 		</nav>
 
 		<!-- Banner Image -->
@@ -74,7 +110,7 @@
 			<li>
 				<h2>Privacy Policy</h2>
 				<p>This website does not collect personal data unless explicitly submitted by the user (e.g., through contact forms or third-party embeds). We do not use cookies for tracking or personalized ads.</p>
-				<p>All user interactions remain anonymous unless external platforms like GitHub or Instagram are used. Any data submitted through external services (e.g., Giscus comments or Elfsight apps) is governed by their respective privacy policies.</p>
+				<p>All user interactions remain anonymous unless external platforms like GitHub or Instagram are used. Any data submitted through external services (e.g., Giscus comments or Firebase apps) is governed by their respective privacy policies.</p>
 				<p>We reserve the right to update this privacy policy at any time. Any changes will be posted on this page.</p>
 			</li>
 
@@ -110,6 +146,6 @@
 		</footer>
 
 		<script src="assets/js/main.js"></script>
-		<script src="https://static.elfsight.com/platform/platform.js" async></script>
+		<script src="assets/js/counter.js" type="module"></script>
 	</body>
 </html>
