@@ -15,7 +15,7 @@
 
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* questo distribuisce spazio tra i blocchi */
+    justify-content: space-between;
 }
 
 #menu.open {
@@ -61,9 +61,40 @@
 	font-size: 2rem;
 }
 
-#menu .counter {
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-	transform: translateY(66px);
+.stats {
+	padding: 15px;
+	color: #fff;
+	background-color: transparent;
+	border-top: 2px solid var(--normal-menu-separator-color);;
+	font-size: 0.9em;
+}
+
+.stats h3 {
+	margin: 0 0 10px;
+	font-size: 1em;
+	color: #ccc;
+	border-bottom: 2px solid #333;
+	padding-bottom: 10px;
+}
+
+.stat-item, .stat-diff {
+	display: flex;
+	justify-content: space-between;
+	padding: 5px 0;
+}
+
+.stat-diff i {
+	margin-right: 5px;
+	color: limegreen;
+}
+
+.stat-diff.down i {
+	color: crimson;
+}
+
+.stat-item.total-total {
+	border-top: 2px solid #333;
+	margin-top: 10px;
+	padding-top: 10px;
+	font-weight: bold;
 }

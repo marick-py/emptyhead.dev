@@ -98,7 +98,7 @@
                 </ul>
 
                 <h2>🕹️ Controls Overview</h2>
-                <pre><code class="python">quit / close window         - X or Alt+F4
+                <pre><code class="text">quit / close window         - X or Alt+F4
 move selected charge        - LEFT CLICK + DRAG
 select charge               - LEFT CLICK
 change selected charge ±0.1 - UP / DOWN ARROW
@@ -482,6 +482,19 @@ def compute_field_lines(origins_xs: np.ndarray,
                 <h2>🧩 Main Simulation Class: Input & State Handling</h2>
                 <p>
                     The <scode>Env</scode> class is the main simulation environment. It manages the state of all charges, field lines, orbs, and user input. This class handles resetting, updating, and rendering the simulation, as well as processing keyboard and mouse events for interactive control. All simulation logic, including dragging charges, toggling modes, and animating orbs, is encapsulated here for a responsive and interactive experience.
+                </p>
+                <p>
+                    <p>
+                        <em>Installation:</em> To run this simulation, install the required <scode>e2D</scode> module with:
+                    </p>
+                    <pre><code class="bash">pip install e2D==1.4.20</code></pre>
+                    <p>
+                        This version is tested and verified for compatibility with the electric field simulator.
+                    </p>
+                    <p>
+                        You will also need <scode>numba</scode> and <scode>numpy</scode>:
+                    </p>
+                    <pre><code class="bash">pip install --upgrade numba numpy</code></pre>
                 </p>
 
                 <pre><code class="python">class Env(DefEnv):
