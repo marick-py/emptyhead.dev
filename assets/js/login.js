@@ -39,14 +39,14 @@ onAuthStateChanged(auth, (user) => {
 
 
 // Function to link anonymous user with email and password
-const email = "ricomari2006@gmail.com";
-const password = "MaRick06";
+// const email = "ricomari2006@gmail.com";
+// const password = "MaRick06";
 
-const credential = EmailAuthProvider.credential(email, password);
-linkWithCredential(auth.currentUser, credential)
-.then((usercred) => {
-    const user = usercred.user;
-    console.log("Anonymous account successfully upgraded", user);
-}).catch((error) => {
-    console.log("Error upgrading anonymous account", error);
-});
+// const credential = EmailAuthProvider.credential(email, password);
+// linkWithCredential(auth.currentUser, credential)
+// .then((usercred) => {
+//     const user = usercred.user;
+//     console.log("Anonymous account successfully upgraded", user);
+// }).catch((error) => {
+//     console.log("Error upgrading anonymous account", error);
+// });

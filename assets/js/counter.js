@@ -1,6 +1,6 @@
 import { getApp, getApps } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
 import { getDatabase, ref, child, get, set, update, remove} from "https://www.gstatic.com/firebasejs/11.8.1/firebase-database.js";
-// import { onValue } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-database.js";
+import { onValue } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-database.js";
 
 const app = getApps().length > 0 ? getApp() : null;
 
