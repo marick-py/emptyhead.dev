@@ -1,27 +1,12 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+import { getApp, getApps } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
 import { getDatabase, ref, child, get, set, update, remove} from "https://www.gstatic.com/firebasejs/11.8.1/firebase-database.js";
-// import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-analytics.js";
+// import { onValue } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-database.js";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+const app = getApps().length > 0 ? getApp() : null;
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-apiKey: "AIzaSyBYuNXKMAlqIiYYIqsGzKkmgpB095jO2qY",
-authDomain: "emptyhead-counter.firebaseapp.com",
-databaseURL: "https://emptyhead-counter-default-rtdb.europe-west1.firebasedatabase.app",
-projectId: "emptyhead-counter",
-storageBucket: "emptyhead-counter.firebasestorage.app",
-messagingSenderId: "395254759620",
-appId: "1:395254759620:web:651b5738ddd107901a4991",
-measurementId: "G-PK1YVTG6NP"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
+if (!app) {
+  throw new Error("Firebase app non inizializzata! login.js deve essere caricato prima di counter.js.");
+}
 const db = getDatabase(app);
 
 function WriteData(key, value) {
@@ -61,7 +46,7 @@ async function main() {
     const yesterdayCount = await ReadData("/countByDay/" + yesterday.toISOString().split('T')[0]);
     
     const startOfWeek = new Date(today);
-    startOfWeek.setDate(today.getDate() - today.getDay());  // Domenica
+    startOfWeek.setDate(today.getDate() - today.getDay());
     const weeklyDates = [];
 
     for (let i = 0; i < 7; i++) {
@@ -71,7 +56,7 @@ async function main() {
     }
 
     const year = today.getFullYear();
-    const month = today.getMonth(); // 0-based
+    const month = today.getMonth();
     const monthlyDates = [];
     const daysInMonth = new Date(year, month + 1, 0).getDate();
 
@@ -80,16 +65,16 @@ async function main() {
         monthlyDates.push(d.toISOString().split('T')[0]);
     }
 
+    const allData = await ReadData('/countByDay'); // { "2025-06-01": 123, ... }
+
     let weeklyTotal = 0;
     for (const date of weeklyDates) {
-        const val = await ReadData(`/countByDay/${date}`);
-        weeklyTotal += val;
+        weeklyTotal += allData[date] || 0;
     }
 
     let monthlyTotal = 0;
     for (const date of monthlyDates) {
-        const val = await ReadData(`/countByDay/${date}`);
-        monthlyTotal += val;
+        monthlyTotal += allData[date] || 0;
     }
 
     document.getElementById("today-count").textContent = currentToday;
@@ -111,7 +96,7 @@ async function main() {
     } else if (diff < 0) {
         diffElem.classList.remove("up");
         diffElem.classList.add("down");
-        diffCount.textContent = `(${diff})`; // già negativo
+        diffCount.textContent = `(${diff})`;
         diffArrow.className = "fas fa-arrow-down";
     } else {
         diffElem.classList.remove("up", "down");
@@ -124,3 +109,7 @@ async function main() {
 
 document.addEventListener("DOMContentLoaded", main);
 
+// const totalCounterRef = ref(db, "/onLoadData/totalCount");
+// onValue(totalCounterRef, (snapshot) => {
+//     main();
+// });
