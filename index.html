@@ -25,6 +25,7 @@
 
 
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/announcement.css" />
 		<link rel="stylesheet" href="assets/css/quotes.css" />
 
 		<link rel="stylesheet" href="assets/css/variables.css" />
@@ -58,8 +59,44 @@
 				<li><a href="myprojects.html" class="projects-button"><i class="fas fa-folder-open"></i>  My Projects</a></li>
 				<li><a href="#" class="quotes-menu-button"><i class="fas fas fa-quote-right"></i>  Quotes</a></li>
 				<li><a href="#" class="contact-button"><i class="fas fa-envelope"></i>  Contact</a></li>
+				<li><a href="https://ko-fi.com/N4N01FXMFF" class="support-button" target="_blank" rel="noopener"><i class="fas fa-heart"></i>  Support Me</a></li>
 			</ul>
-			<div class="elfsight-app-d3b5fda8-aeb8-4294-b291-69d46671e8b5 counter" data-elfsight-app-lazy></div>
+
+			<!-- Counter -->
+			<div id="stats-panel" class="stats">
+				<h3 id="counter-title">Visits stats (Loading...)</h3>
+
+				<div class="stat-item">
+					<span class="label">Today</span>
+					<span class="value-with-diff">
+						<span class="value" id="today-count">0</span>
+						<span class="diff" id="today-diff">
+							<span id="today-diff-count">(+0)</span>
+							<i id="today-diff-arrow" class="fas fa-arrow-up"></i>
+						</span>
+					</span>
+				</div>
+
+				<div class="stat-item">
+					<span class="label">Yesterday</span>
+					<span class="value" id="yesterday-count">0</span>
+				</div>
+
+				<div class="stat-item">
+					<span class="label">This Week</span>
+					<span class="value" id="week-count">0</span>
+				</div>
+
+				<div class="stat-item">
+					<span class="label">This Month</span>
+					<span class="value" id="month-count">0</span>
+				</div>
+
+				<div class="stat-item total-total">
+					<span class="label">Total</span>
+					<span class="value" id="total-count">0</span>
+				</div>
+			</div>
 		</nav>
 
 		<!-- Banner -->
@@ -81,6 +118,27 @@
 				</p>
 			</ul>
 		</div>
+
+		<section class="project-announcement">
+			<div class="announcement-card">
+				<figure class="announcement-image">
+				<img src="assets/images/projects/electric_field/electric_field_screenshot_2025_06_02_21_07_52.webp" alt="Electric Field Screenshot">
+				<div class="image-overlay"></div>
+				</figure>
+				<div class="announcement-content">
+				<h2>New Project Uploaded</h2>
+				<p class="title">⚡ 2D Electric Field Simulator</p>
+				<p class="description">
+					A real-time physics simulation visualizing electric field lines around multiple dynamic charges. Fully interactive, fast, and visually rich.
+				</p>
+
+				<div class="button-row">
+				<a href="myprojects.html#/My%20Projects%20(Work%20in%20progress)/Physics%20Simulations/Electric%20Field" class="secondary-button">🌳 Open in Tree</a>
+				<a href="assets/projects/docs/electric_field.html" class="view-button">🔗 View Project</a>
+				</div>
+				</div>
+			</div>
+		</section>
 
 		<div id="quotes-box" class="quotes-container" translate="yes"></div>
 
@@ -119,7 +177,6 @@
 				<a href="http://instagram.com/m.rikk_" target="_blank"><i class="fa fa-instagram"></i></a>
 			</div>
 		</footer>
-		
 		<footer class="bottom-footer">
 			<div class="footer-content">
 				<ul class="footer-links">
@@ -133,8 +190,11 @@
 		
 		<div id="copy-popup"></div>
 
+		
 		<script src="assets/js/main.js"></script>
+		
+		<script src="assets/js/login.js" type="module"></script>
+		<script src="assets/js/counter.js" type="module"></script>
 		<script src="assets/js/quotes.js"></script>
-		<script src="https://static.elfsight.com/platform/platform.js" async></script>
 	</body>
 </html>

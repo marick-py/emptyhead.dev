@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>xPeople | Profile</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Verdana&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Book+Antiqua&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: #fff;
+      font-family: 'Verdana', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .quote {
+      font-family: 'Great Vibes';
+      font-size: 2.5em;
+      text-align: center;
+      padding: 3em 1em;
+      text-shadow: 10px 10px 10px white;
+      max-width: 80ch;
+      margin: 0 auto;
+    }
+
+    .identity {
+      text-align: center;
+      margin-top: 2em;
+      font-size: 1em;
+    }
+
+    .identity a {
+      color: white;
+      text-decoration: none;
+      border-bottom: 1px solid white;
+    }
+
+    .trail {
+      position: absolute;
+      pointer-events: none;
+      color: white;
+      font-family: 'Book Antiqua', serif;
+      font-size: 16px;
+      text-shadow: 0 0 5px white;
+      animation: fadeout 1s forwards;
+    }
+
+    @keyframes fadeout {
+      from {
+        opacity: 1;
+        transform: scale(1);
+      }
+      to {
+        opacity: 0;
+        transform: scale(0.6);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="quote">
+    Per quanto l’uomo si prodighi<br>
+    non può fare nulla contro il talento e la fantasia.<br>
+    Sarebbe come voler spegnere le stelle.<br>
+    Puoi chiudere gli occhi,<br>
+    ma continueranno a brillare.
+  </div>
+
+  <div class="identity">
+    Identità: <a href="/" target="_blank">Oliver</a>
+  </div>
+
+  <!-- Effetto scia -->
+  <script>
+    const trailText = "RoRy";
+    const maxTrail = 20;
+    const trailElements = [];
+
+    document.addEventListener("mousemove", (e) => {
+      const span = document.createElement("span");
+      span.className = "trail";
+      span.innerText = trailText;
+      span.style.left = `${e.pageX + 10}px`;
+      span.style.top = `${e.pageY + 10}px`;
+      document.body.appendChild(span);
+      trailElements.push(span);
+
+      // Rimozione automatica
+      setTimeout(() => {
+        span.remove();
+        trailElements.shift();
+      }, 1000);
+    });
+  </script>
+</body>
+</html>

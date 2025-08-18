@@ -1,0 +1,292 @@
+<!DOCTYPE HTML>
+<html lang="en" translate="no">
+    <head>
+        <title>Countdown to Our Day ❤️</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="icon" type="image/png" href="assets/images/favicon.png" sizes="32x32" />
+
+        <meta property="og:title" content="Per La Mia Ninfomane 😽" />
+		<meta property="og:description" content="Ti voglio un mondo di bene e non vedo l'ora di non dover più usare questo sito." />
+		<meta property="og:url" content="https://www.emptyhead.dev/" />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="EmptyHead" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:site" content="https://www.emptyhead.dev/" />
+		<meta property="og:locale:alternate" content="en_US" />
+		<meta property="og:locale:alternate" content="en_GB" />
+		<meta property="og:locale:alternate" content="it_IT" />
+		<meta property="og:image" content="assets/images/paperina/paperina_1.webp">
+
+        <meta name="description" content="Ti voglio un mondo di bene e non vedo l'ora di non dover più usar equesto sito." />
+		<meta name="author" content="Ric" />
+
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Caprasimo:wght@400;700&display=swap" rel="stylesheet">
+
+        <style>
+            h1, .big, .small, .gallery {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            body {
+                font-family: "Quicksand", sans-serif;
+                text-align: center;
+                background-color: #ffc7c7;
+                color: #363636;
+                margin: 0;
+                padding: 0;
+            }
+            h1 {
+                margin-top: 20px;
+                max-width: 90%;
+                font-family: "Caprasimo", cursive;
+                color: #bcf2ff;
+                -webkit-text-stroke: 2px #1b1b1b;
+                text-stroke: 2px #1b1b1b;
+                
+                font-weight: 100;
+                font-size: 2em;
+            }
+            .gallery {
+                display: flex;
+                overflow-x: auto;
+                gap: 20px;
+                padding: 20px;
+                scroll-snap-type: x mandatory;
+                scrollbar-width: none;
+                max-width: 90%;
+            }
+            .gallery::-webkit-scrollbar {
+                display: none;
+            }
+            .gallery img {
+                flex: 0 0 auto;
+                width: 300px;
+                height: 400px;
+                object-fit: cover;
+                border-radius: 20px;
+                scroll-snap-align: center;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .gallery img:hover {
+                transform: scale(1.05);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            }
+            .big {
+                font-size: 1.5em;
+                margin-top: 20px;
+                margin-bottom: 25px;
+                color: #518d9c;
+                max-width: 90%;
+                font-weight: 700;
+            }
+            .small {
+                font-size: 1em;
+                margin-top: 10px;
+                color: #2e2f30;
+                max-width: 80%;
+                font-weight: 500;
+            }
+            .progress {
+                font-size: 1.5em;
+                font-weight: bold;
+                color: #27505a;
+                margin-bottom: 25px;
+            }
+            .num {
+                font-size: 1.2em;
+                font-weight: bold;
+                color: #fc8383;
+            }
+
+            #login-list {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .login-item {
+                max-width: 200px;
+                width: 100%;
+                padding: 8px;
+                margin-bottom: 8px;
+                border: 2px solid #9e759e;
+                border-radius: 10px;
+                font-weight: bold;
+                font-size: 1rem;
+                font-family: 'Quicksand', sans-serif;
+                color: #830083;
+                text-align: center;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+                cursor: default;
+            }
+
+            .login-item:hover {
+                transform: scale(1.05);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            }
+        </style>
+    </head>
+<body>
+
+<h1>Mi manchi tantissimo mia piccola ninfomane</h1>
+<h1>🧡 🧡</h1>
+
+<div class="gallery">
+    <img src="assets/images/paperina/paperina_1.webp" alt="Us Photo 1">
+    <img src="assets/images/paperina/paperina_2.webp" alt="Us Photo 2">
+    <img src="assets/images/paperina/paperina_3.webp" alt="Us Photo 3">
+    <img src="assets/images/paperina/paperina_4.webp" alt="Us Photo 4">
+    <img src="assets/images/paperina/paperina_5.webp" alt="Us Photo 5">
+    <img src="assets/images/paperina/paperina_6.webp" alt="Us Photo 6">
+    <img src="assets/images/paperina/paperina_7.webp" alt="Us Photo 7">
+</div>
+
+<div class="big" id="mainCountdown"></div>
+<div class="progress" id="progressPercent"></div>
+<div class="small" id="daysOnly"></div>
+<div class="small" id="hoursOnly"></div>
+<div class="small" id="minutesOnly"></div>
+<div class="small" style="padding-bottom: 10vh;" id="secondsOnly"></div>
+
+<footer id="login-list" style="padding:20px; font-family: sans-serif;">Loading...</footer>
+
+<script src="assets/js/login.js" type="module"></script>
+<script type="module">
+    import { getApp, getApps } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+    import { getDatabase, ref, get, child, push  } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-database.js";
+
+    // Use existing Firebase app
+    const app = getApps().length > 0 ? getApp() : null;
+    if (!app) throw new Error("Firebase app non inizializzata!");
+
+    const db = getDatabase(app);
+
+
+    async function getIp() {
+        const res = await fetch("https://api.ipify.org?format=json");
+        const data = await res.json();
+        return data.ip;
+    }
+
+    async function updateLogins() {
+        try {
+            const snapshot = await get(child(ref(db), "paperina"));
+            if (!snapshot.exists()) return;
+
+            const loginsArray = Object.values(snapshot.val());
+
+            loginsArray.sort((a,b) => new Date(a.time) - new Date(b.time));
+            loginsArray.reverse();
+
+            const footer = document.getElementById("login-list");
+            footer.innerHTML = "";
+
+            loginsArray.forEach(login => {
+                const label = document.createElement("div");
+                const date = new Date(login.time).toLocaleString()
+                label.textContent = `${date}`;
+                label.classList.add("login-item");
+                footer.appendChild(label);
+            });
+        } catch (err) {
+            console.error("Error fetching logins:", err);
+        }
+    }
+
+    async function addLogin(device_name) {
+        const data = {
+            device_name: device_name,
+            time: new Date().toISOString(),
+            ip: await getIp()
+        };
+        
+        await push(ref(db, "paperina"), data)
+            .then(() => {
+                console.log("Login saved:", data);
+            })
+            .catch((error) => {
+                console.error("Error writing login:", error);
+            });
+    }
+
+
+    async function getDeviceLabel() {
+        if (navigator.userAgentData) {
+            const brands = navigator.userAgentData.brands.map(b => b.brand).join(", ");
+            return `${brands} (${navigator.userAgentData.platform})`;
+        }
+        return navigator.userAgent;
+    }
+
+    async function login() {
+        await addLogin(await getDeviceLabel());
+        await updateLogins();
+    }
+
+    
+    document.addEventListener("DOMContentLoaded", () => {
+        login();
+    });
+</script>
+
+<script>
+    const startDate = new Date("2025-08-05T07:30:00").getTime();
+    const targetDate = new Date("2025-08-29T12:30:00").getTime();
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        let diff = targetDate - now;
+
+        if (diff <= 0) {
+            document.getElementById("mainCountdown").innerHTML = "IM HAPPYYYYYYY";
+            document.getElementById("daysOnly").innerHTML = "";
+            document.getElementById("hoursOnly").innerHTML = "";
+            document.getElementById("minutesOnly").innerHTML = "";
+            document.getElementById("secondsOnly").innerHTML = "";
+            return;
+        }
+
+        const seconds = Math.floor(diff / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+        const weeks = Math.floor(days / 7);
+
+        const remDays = days % 7;
+        const remHours = hours % 24;
+        const remMinutes = minutes % 60;
+        const remSeconds = seconds % 60;
+
+        document.getElementById("mainCountdown").innerHTML = 
+            `<span class="num">${weeks}</span> weeks, 
+            <span class="num">${remDays}</span> days, 
+            <span class="num">${remHours}</span> hours, 
+            <span class="num">${remMinutes}</span> minutes, 
+            <span class="num">${remSeconds}</span> seconds`;
+
+        const totalDuration = targetDate - startDate;
+        const elapsed = now - startDate;
+        let percent = (elapsed / totalDuration) * 100;
+        if (percent < 0) percent = 0;
+        if (percent > 100) percent = 100;
+
+        document.getElementById("progressPercent").innerHTML = 
+            `<span class="percentage">${percent.toFixed(5)}%</span>`;
+
+        document.getElementById("daysOnly").innerHTML = `<span class="num">${days}</span> days`;
+        document.getElementById("hoursOnly").innerHTML = `<span class="num">${hours}</span> hours`;
+        document.getElementById("minutesOnly").innerHTML = `<span class="num">${minutes}</span> minutes`;
+        document.getElementById("secondsOnly").innerHTML = `<span class="num">${seconds}</span> seconds`;
+    }
+
+    setInterval(updateCountdown, 100);
+    updateCountdown();
+</script>
+
+</body>
+</html>

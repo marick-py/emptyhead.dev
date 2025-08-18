@@ -1,0 +1,107 @@
+.project-announcement {
+    margin: 40px auto;
+    max-width: 1000px;
+    padding: 10%;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.announcement-card {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: var(--bg-color-2);
+    border: 2px solid var(--primary-color);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 0 20px #00000055;
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.announcement-card:hover {
+    transform: scale(1.01);
+}
+
+.announcement-image {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.announcement-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent, var(--bg-color-2) 100%);
+    pointer-events: none;
+}
+
+.announcement-content {
+    flex: 1;
+    padding: 20px;
+    color: white;
+}
+
+.announcement-content h2 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+.announcement-content .title {
+    font-weight: bold;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+.announcement-content .description {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.button-row {
+    display: flex;
+    width: 100%;
+    gap: 0;
+}
+
+.button-row a {
+    flex: 1;
+    text-align: center;
+    padding: 12px 0;
+    font-weight: bold;
+    text-decoration: none;
+    border-top: 1px solid var(--primary-color);
+    transition: background-color 0.3s ease;
+}
+
+.view-button {
+    background-color: var(--primary-color);
+    color: #000;
+    border-radius: 0 0 14px 0;
+}
+
+.view-button:hover {
+    background-color: var(--secondary-color-dark-shade-1);
+    color: black;
+}
+
+.secondary-button {
+    background-color: var(--bg-color-2-light-shade-1);
+    color: var(--primary-color);
+    border-radius: 0 0 0 14px;
+}
+
+.secondary-button:hover {
+    background-color: var(--bg-color-2-light-shade-2);
+    color: #fff;
+}
