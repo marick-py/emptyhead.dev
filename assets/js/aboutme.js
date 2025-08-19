@@ -34,7 +34,15 @@ window.addEventListener('hashchange', () => {
 let currentPath = getPathFromHash();
 // GRAPH FUNCTIONS
 
-function updateGraph() {
+function updateGraph() {    
+    let current_node = jsonData;
+    for (let i = 0; i < currentPath.length; i++) {
+        current_node = current_node[currentPath[i]];
+    }
+    if (typeof current_node === 'object' && Object.keys(current_node).length == 1) {
+        currentPath.push(Object.keys(current_node)[0]);
+    }
+
     let nodeElements = [];
     let lineElements = [];
 

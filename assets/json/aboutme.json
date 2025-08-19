@@ -54,22 +54,19 @@
       "AI Experience": {
         "Algorithms": {
           "Reinforcement": "I've built multiple Q-learning agents across various environments.",
-          "Neural Networks": "I experimented with PyTorch and TensorFlow to model deep-learning tasks.",
+          "Neural Networks": "I experimented with PyTorch and TensorFlow to model deep-learning tasks. And I've built several neural network architectures from scratch for simpler projects.",
           "NEAT": "Used NEAT for evolving AI behavior in game-like environments and simulations."
         },
         "Application Areas": {
-          "Image Recognition": "Applied convolutional architectures to classify image content.",
+          "Image Recognition": "Applied convolutional architectures to classify image content. Used for screen reader bots playing games or for automation tasks.",
           "Natural Language": "Built language models and basic chatbots using NLP techniques.",
           "Projects Ratio": "Approximately 30% of my total projects include AI-related implementations."
-        },
-        "Ethical Concerns": {
-          "Reflection": "I consider the risks and ethics of automation, data use, and unintended biases in AI."
         }
       }
     },
     "Tools": {
       "Programming Stack": {
-        "Languages": "Primary languages include Python, Java, and GDScript (Godot).",
+        "Languages": "Primary languages include Python, C, C++, Javascript and GDScript (Godot).",
         "Python Libraries": "NumPy, Numba, Cython, TensorFlow, PyTorch and expecially my beloved e2D library. (which contains a e2D.envs module which is a wrapper for pygame)"
       },
       "DevOps": {
@@ -77,8 +74,8 @@
         "Deployment": "I manage my own domain and perform advanced file transfer and publishing."
       },
       "Workflow": {
-        "IDE\\Editors": "Frequent tools include VSCode, PyCharm, and Godot’s native editor.",
-        "Testing": "I perform manual and functional testing on most projects; exploring unit testing frameworks."
+        "IDE\\Editors": "Frequent tools include VSCode with advanced shortcut knowledge and Godot’s native editor.",
+        "Testing": "I perform manual and functional testing on most projects; exploring unit testing frameworks and debugging tools."
       }
     }
   }

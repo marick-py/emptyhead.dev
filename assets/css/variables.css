@@ -13,11 +13,11 @@
 	--normal-menu-buttons-color: rgb(214, 195, 20);
 	--hover-layer-color: rgb(0, 0, 0, .75);
 
-	--primary-color-dark-shade-1: rgb(156, 76, 0);
 	--primary-color: rgb(255, 123, 0);
 	--primary-color-light-shade-1: rgb(255, 159, 70);
 	--primary-color-dark-shade-1: rgb(199, 96, 0);
-	--primary-color-dark-shade-2: rgb(105, 51, 0);
+	--primary-color-dark-shade-2: rgb(156, 76, 0);
+	--primary-color-dark-shade-3: rgb(105, 51, 0);
 	--secondary-color: rgb(255, 251, 0);
 	--secondary-color-dark-shade-1: rgb(189, 186, 0);
 	--secondary-color-dark-shade-2: rgb(82, 80, 0);

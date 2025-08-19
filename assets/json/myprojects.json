@@ -1,10 +1,10 @@
 {
-  "My Projects (Work in progress)": {
+  "My Projects": {
     "Physics Simulations": {
       "Electric Field": "electric_field.html"
     },
     "Games": {
-      "TicTacToe": "ttt.html"
+      "TicTacToe": "tictactoe.html"
     }
   }
 }

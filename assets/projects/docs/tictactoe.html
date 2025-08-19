@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+    <head>
+        <title>EmptyHead | Projects</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="icon" type="image/png" href="../../../assets/images/favicon.png" sizes="32x32" />
+        
+        <meta property="og:title" content="EmptyHead" />
+        <meta property="og:description" content="Welcome to my corner of the web! A place where I share my projects, experiments, and random ideas as I learn and grow as a developer." />
+        <meta property="og:url" content="https://www.emptyhead.dev/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="EmptyHead" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:site" content="https://www.emptyhead.dev/" />
+        <meta property="og:locale:alternate" content="en_US" />
+        <meta property="og:locale:alternate" content="en_GB" />
+        <meta property="og:locale:alternate" content="it_IT" />
+        <meta property="og:image" content="../../../assets/images/banner.webp">
+
+        <meta name="description" content="Welcome to my corner of the web! A place where I share my projects, experiments, and random ideas as I learn and grow as a developer." />
+        <meta name="keywords" content="EmptyHead, marick, portfolio, projects, web development, programming" />
+        <meta name="author" content="marick" />
+        
+        <link rel="stylesheet" href="../../../assets/css/projects_docs.css" />
+
+        <link rel="stylesheet" href="../../../assets/css/variables.css" />
+        <link rel="stylesheet" href="../../../assets/css/loading-screen.css" />
+        <link rel="stylesheet" href="../../../assets/css/header.css" />
+        <link rel="stylesheet" href="../../../assets/css/menu.css" />
+        <link rel="stylesheet" href="../../../assets/css/footer.css" />
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/monokai.min.css">
+    </head>
+
+    <body class="loading">
+        <div id="loading-screen">
+            <div class="spinner"></div>
+        </div>
+
+        <!-- Header -->
+        <header id="global-header" class="header scrolled">
+            <div class="logo"><a href="/">EmptyHead <span class="by">by marick</span></a></div>
+            <button id="menu-toggle" class="menu-toggle"><i class="fa-solid fa-bars"></i></button>
+        </header>
+
+        <!-- Nav -->
+		<div class="overlay"></div>
+        <nav id="menu">
+            <ul id="menu-buttons" class="links">
+                <li><a href="/" class="home-button"><i class="fas fa-home"></i>  Home</a></li>
+                <li><a href="../../../aboutme.html" class="about-button"><i class="fas fa-info-circle"></i>  About Me</a></li>
+                <li><a href="../../../myprojects.html" class="projects-button"><i class="fas fa-folder-open"></i>  My Projects</a></li>
+                <li><a href="#" class="contact-button"><i class="fas fa-envelope"></i>  Contact</a></li>
+                <li><a href="https://ko-fi.com/N4N01FXMFF" class="support-button" target="_blank" rel="noopener"><i class="fas fa-heart"></i>  Support Me</a></li>
+            </ul>
+
+			<!-- Counter -->
+			<div id="stats-panel" class="stats">
+				<h3 id="counter-title">Visits stats (Loading...)</h3>
+
+				<div class="stat-item">
+					<span class="label">Today</span>
+					<span class="value-with-diff">
+						<span class="value" id="today-count">0</span>
+						<span class="diff" id="today-diff">
+							<span id="today-diff-count">(+0)</span>
+							<i id="today-diff-arrow" class="fas fa-arrow-up"></i>
+						</span>
+					</span>
+				</div>
+
+				<div class="stat-item">
+					<span class="label">Yesterday</span>
+					<span class="value" id="yesterday-count">0</span>
+				</div>
+
+				<div class="stat-item">
+					<span class="label">This Week</span>
+					<span class="value" id="week-count">0</span>
+				</div>
+
+				<div class="stat-item">
+					<span class="label">This Month</span>
+					<span class="value" id="month-count">0</span>
+				</div>
+
+				<div class="stat-item total-total">
+					<span class="label">Total</span>
+					<span class="value" id="total-count">0</span>
+				</div>
+			</div>
+		</nav>
+
+        <!-- Local-Header -->
+        <div class="header-bg"><header id="local-header" class="header">
+            <div class="logo"><a href="/">EmptyHead <span class="by">by marick</span></a></div>
+            <button id="menu-toggle" class="menu-toggle"><i class="fas fa-bars"></i></button>
+        </header></div>
+
+        <!-- Content -->
+        <section class="project-section">
+            <div class="project-content">
+                <h1>Tic Tac Toe AI with Minimax</h1>
+                <p class="project-meta">
+                    <span class="project-id">Project #3</span>
+                    <span class="project-language"><img src="../../../assets/images/languages-logos/C.webp" alt="Python" draggable="false" oncontextmenu="return false;"></span>
+                    <span class="project-date">Published: 18/08/2025</span>
+                </p>
+
+                <p>
+                    This project implements the classic game of <b>Tic Tac Toe</b> with an
+                    <em>unbeatable AI opponent</em>. The AI is built on the <code>Minimax</code>
+                    algorithm, improved with <code>Alpha-Beta pruning</code> for efficiency.
+                    Despite the simplicity of Tic Tac Toe, the project is an excellent
+                    introduction to <b>game tree search</b>, a fundamental technique in AI.
+                </p>
+
+                <img src="../../../assets/images/projects/tictactoe/preview.webp" alt="Tic Tac Toe Screenshot" class="project-image"/>
+
+                <h2>🔑 Key Features</h2>
+                <ul>
+                    <li>Unbeatable AI using <em>perfect play</em></li>
+                    <li>Support for both Player vs Player and Player vs AI</li>
+                    <li>Configurable AI side (<b>X</b> or <b>O</b>)</li>
+                    <li>Optional move suggestions (highlighting the best move)</li>
+                    <li>Clean board rendering with coordinate labels</li>
+                </ul>
+
+                <h2>🧠 The Minimax Algorithm</h2>
+                <p>
+                    Minimax is a recursive search algorithm used to decide the best move in
+                    two-player games. The idea is simple:
+                </p>
+                <ul>
+                    <li>Assume both players play optimally.</li>
+                    <li>The <b>maximizing player</b> (the AI) tries to maximize the score.</li>
+                    <li>The <b>minimizing player</b> (the opponent) tries to minimize the score.</li>
+                </ul>
+                <p>
+                    At each turn, the algorithm explores all possible moves, simulates the
+                    outcome, and assigns a score: win (+10), loss (−10), or draw (0). These
+                    scores propagate upwards in the game tree, allowing the AI to pick the move
+                    that guarantees the best final outcome.
+                </p>
+
+                <img src="../../../assets/images/projects/tictactoe/minimax_tree.webp" alt="Minimax Game Tree Example" class="project-image"/>
+
+                <pre><code class="c">SearchResult MiniMax(int board[9], int turn, int depth, int alpha, int beta) {
+int win = is_win(board);
+if (win) return (SearchResult){ (win == AI ? 10 - depth : depth - 10), -1 };
+if (is_board_filled(board)) return (SearchResult){0, -1};
+
+SearchResult best = { (turn == AI ? -11 : 11), -1 };
+for (int move = 0; move < 9; move++) {
+    if (board[move] != EMPTY) continue;
+    board[move] = turn;
+    SearchResult result = MiniMax(board, (turn==1?2:1), depth+1, alpha, beta);
+    board[move] = EMPTY;
+
+    if ((turn == AI && result.value > best.value) ||
+        (turn != AI && result.value < best.value)) {
+        best.value = result.value;
+        best.action = move;
+    }
+
+    if (turn == AI) alpha = (best.value > alpha) ? best.value : alpha;
+    else beta = (best.value < beta) ? best.value : beta;
+    if (beta <= alpha) break; // pruning
+}
+return best;
+}</code></pre>
+
+                <h2>✂️ Alpha-Beta Pruning</h2>
+                <p>
+                    While Minimax explores every possible game state, many branches are
+                    unnecessary because optimal play would never reach them. Alpha-Beta pruning
+                    introduces two bounds:
+                </p>
+                <ul>
+                    <li><b>Alpha</b>: the best score the maximizer is guaranteed so far.</li>
+                    <li><b>Beta</b>: the best score the minimizer is guaranteed so far.</li>
+                </ul>
+                <p>
+                    If at any point <code>beta ≤ alpha</code>, the current branch can be
+                    <b>cut off</b> safely — no need to explore further, as a better move is
+                    already known. This reduces the search space dramatically without changing
+                    the result.
+                </p>
+
+                <img src="../../../assets/images/projects/tictactoe/alpha_beta_pruning.webp" alt="Alpha Beta Pruning Visualization" class="project-image"/>
+
+                <h2>⚙️ Controls</h2>
+                <pre><code class="text">Enter move as:
+- row col   (e.g., 1 2 for row=1, col=2)
+- index     (0–8, left-to-right)
+
+Choose AI player (X or O) and whether to enable move suggestions at the start.</code></pre>
+
+                <h2>📚 Educational Value</h2>
+                <p>
+                    Although Tic Tac Toe is a trivial solved game, this project is a hands-on
+                    example of how <em>adversarial search</em> works. The same ideas scale up
+                    to more complex games such as Chess, Go, or Connect Four — where pruning,
+                    heuristics, and evaluation functions become essential.
+                </p>
+
+                <img src="../../../assets/images/projects/tictactoe/demo_game.webp" alt="Tic Tac Toe Demo Game" class="project-image"/>
+
+                <div class="centered-button">
+                    <a href="https://github.com/marick-py/c/blob/main/tictactoe_minimax_alpha_beta.c"
+                    class="button" target="_blank">
+                    🔗 View Project on GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="top-footer">
+			<div class="social-links">
+				<a href="https://discord.com/users/589449750382903315" target="_blank"><i class="fa fa-discord"></i></a>
+				<a href="https://github.com/marick-py" target="_blank"><i class="fa fa-github"></i></a>
+				<a href="https://stackoverflow.com/users/15393950/marick" target="_blank"><i class="fa fa-stack-overflow"></i></a>
+				<a href="https://www.linkedin.com/in/mariani-riccardo" target="_blank"><i class="fa fa-linkedin"></i></a>
+				<a href="mailto:ricomari2006@gmail.com" target="_blank"><i class="fa fa-envelope"></i></a>
+				<a href="http://instagram.com/m.rikk_" target="_blank"><i class="fa fa-instagram"></i></a>
+			</div>
+		</footer>
+
+        <footer class="bottom-footer">
+			<div class="footer-content">
+				<ul class="footer-links">
+					<li><a href="../../../policy_terms.html">Privacy Policy</a></li>
+					<li><a href="../../../policy_terms.html">Terms of Use</a></li>
+					<li><button class="footer-contact-button">Contact Us</button></li>
+				</ul>
+				<p>&copy; <span id="year"></span> emptyhead.dev. All rights reserved.</p>
+			</div>
+		</footer>
+
+        <script src="../../../assets/js/main.js"></script>
+        
+		<script src="../../../assets/js/login.js" type="module"></script>
+		<script src="../../../assets/js/counter.js" type="module"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                hljs.highlightAll();
+            });
+        </script>
+    </body>
+</html>

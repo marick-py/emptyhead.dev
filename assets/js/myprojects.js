@@ -17,7 +17,7 @@ function getPathFromHash() {
     if (hash.startsWith('#/')) {
         return hash.slice(2).split('/');
     }
-    return ['My Projects (Work in progress)'];
+    return ['My Projects'];
 }
 function updateURL(new_path) {
     currentPath = new_path;
@@ -25,6 +25,7 @@ function updateURL(new_path) {
     if (window.location.hash !== newHash) {
         window.location.hash = newHash;
     }
+    
 }
 window.addEventListener('hashchange', () => {
     currentPath = getPathFromHash();
@@ -55,6 +56,15 @@ function loadDescription(description_name) {
 }
 
 function updateGraph() {
+    let current_node = jsonData;
+    for (let i = 0; i < currentPath.length; i++) {
+        current_node = current_node[currentPath[i]];
+    }
+    if (typeof current_node === 'object' && Object.keys(current_node).length == 1) {
+        currentPath.push(Object.keys(current_node)[0]);
+        updateURL(currentPath);
+    }
+
     let nodeElements = [];
     let lineElements = [];
 
@@ -187,7 +197,7 @@ function updateGraph() {
                                 adjustContentSpacer();
                             });
                             window.descriptionResizeObserver.observe(node);
-                            adjustContentSpacer();  // For good measure
+                            adjustContentSpacer();
                         } else {
                             node.innerHTML = '<em>Error loading content.</em>';
                         }
