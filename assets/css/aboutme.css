@@ -1,6 +1,11 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;700&display=swap");
 
+:root {
+    --inter-nodes-section-height: 75px;
+    --use-in-line-node-spacing: 1;
+}
+
 /* RESET */
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
 	margin: 0;
@@ -111,7 +116,7 @@ body::-webkit-scrollbar-thumb {
     border: 2px solid var(--primary-color);
 }
 
-.node:hover {
+.node:hover:not(.description) {
     color: var(--primary-color);
     z-index: 2;
 }
@@ -136,8 +141,41 @@ body::-webkit-scrollbar-thumb {
     width: 80%;
     transform: translate(-50%, -10px);
     cursor: default;
-    color: var(--secondary-color);
+    color: white;
+    padding: 25px 15px 45px 15px;
 }
+
+.description code {
+    background-color: var(--bg-color-light-shade-2);
+    color: var(--secondary-color-dark-shade-1);
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-family: "Fira Code", monospace;
+    font-size: 0.95em;
+}
+
+.description strong {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.description em {
+    color: var(--secondary-color-dark-shade-1);
+    font-style: italic;
+}
+
+.description a {
+    color: var(--secondary-color);
+    text-decoration: underline dashed;
+    text-underline-offset: 3px; 
+    transition: color 0.2s, text-decoration-color 0.2s;
+}
+
+.description a:hover {
+    color: var(--primary-color-light-shade-1);
+    text-decoration-color: var(--primary-color);
+}
+
 
 /* Lines */
 
@@ -203,4 +241,23 @@ body::-webkit-scrollbar-thumb {
 .content-spacer {
     background-color: var(--bg-color);
     flex-grow: 1;
+}
+
+@media (min-width: 992px) {
+    :root {
+        --inter-nodes-section-height: 175px;
+        --use-in-line-node-spacing: 0;
+    }
+
+    .node {
+        font-size: 22px;
+    }
+    
+    .first-element {
+        font-size: 48px;
+    }
+
+    .description {
+        font-size: 32px;
+    }
 }

@@ -4,7 +4,9 @@
       "Electric Field": "electric_field.html"
     },
     "Games": {
-      "TicTacToe": "tictactoe.html"
+      "AI Algorithms": {
+        "TicTacToe": "tictactoe.html"
+      }
     }
   }
 }

@@ -2,80 +2,81 @@
   "About Me": {
     "Profile": {
       "Identity": {
-        "Basic": "I'm Riccardo Mariani, an 18-year-old self-taught programmer passionate about Python and digital technologies.",
+        "Basic": "I'm <strong>Riccardo Mariani</strong>, an <em>18-year-old self-taught programmer</em> passionate about <code>Python</code> and digital technologies, with over 8 years of independent learning and hands-on projects. My background combines technical problem-solving, creativity, and a drive to push beyond limits through coding.",
         "Education": {
-          "High School": "Currently attending the 5th year at Liceo Scientifico Piero Bottoni in Milan.",
-          "University Plan": "I plan to enroll in Computer Engineering at Politecnico di Milano, Leonardo campus.",
-          "PCTO Experience": "I attended several programming-focused PCTO courses at Politecnico, deepening my academic exposure to coding."
+          "High School": "I graduated from <strong>Liceo Scientifico Piero Bottoni</strong> in Milan, where I cultivated both my scientific background and programming passion. The school gave me the opportunity to combine rigorous scientific education with practical projects in computer science.",
+          "University": "I am currently enrolled in <strong>Computer Engineering</strong> at the <a href='https://www.polimi.it/' target='_blank'>Politecnico di Milano</a> (Leonardo campus). Studying at the Politecnico is both a challenge and an honor: the university is one of the most prestigious institutions in Italy and Europe for technical education, and being part of it means belonging to a community dedicated to <em>innovation, research, and cutting-edge engineering</em>. My studies there are strengthening my knowledge of algorithms, electronics, and applied mathematics while giving me access to high-level research opportunities.",
+          "PCTO Experience": "During high school, I attended several <strong>PCTO</strong> courses at <a href='https://www.polimi.it/' target='_blank'>Politecnico di Milano</a>, focusing on programming and technical skills. These experiences exposed me early to academic-level coding environments, teamwork in structured projects, and the methodologies of professional software development."
         },
-        "Teaching": "I'm currently teaching a series of Python lessons at my high school to help fellow students develop programming skills."
+        "Teaching": "I teach <code>Python</code> at my former high school, conducting extracurricular lessons for younger students. These lessons cover programming fundamentals, algorithmic thinking, and practical applications. Beyond classes, I also provide <em>individual tutoring</em> and project guidance, helping students design their own small-scale tools or simulations. Sharing my knowledge has become an important part of my journey, reinforcing both my <strong>technical</strong> and <strong>communication</strong> skills while building a community of motivated young programmers."
       },
       "Origins": {
         "Early Exposure": {
-          "Scratch": "I started coding at 10 with Scratch, creating cloud-based chat systems and RPGs using public variables.",
-          "Transition": "After Scratch, I spent a year building an RPG game in Godot with a friend before diving into Python and Java."
+          "Scratch": "I began coding at 10 with <code>Scratch</code>, where I designed chat systems and RPGs using <em>cloud variables</em> to handle real-time interactions. Scratch allowed me to see programming as a <em>creative tool</em> rather than just a technical exercise, opening the door to building interactive systems from imagination alone.",
+          "Transition": "After Scratch, I spent a year developing an <strong>RPG</strong> in <code>Godot</code> with a friend. That experience introduced me to <em>game design, scripting, and collaborative development</em>. Soon after, I transitioned into <code>Python</code> and explored <code>C</code> and <code>C++</code>, giving me the ability to tackle deeper technical challenges and performance-focused coding."
         },
-        "Turning Point": "My passion ignited during a Scratch workshop in middle school, revealing programming as both a language and a tool."
+        "Turning Point": "My true passion for programming emerged during a <strong>Scratch workshop</strong> in middle school, when I realized programming could be both a <em>universal language</em> and a <em>tool to model ideas and phenomena</em>. That moment shaped my decision to pursue coding not just as a hobby but as a lifelong career path."
       }
     },
     "Projects": {
       "Overview": {
-        "Volume": "I've created around 260 documented Python projects spanning a wide range of practical and creative applications.",
+        "Volume": "Over the years, I have created around <strong>260 documented <code>Python</code> projects</strong>, ranging from small utilities to large-scale <em>simulations and automation systems</em>. This wide variety has allowed me to constantly learn, experiment, and refine both my coding style and problem-solving approach.",
         "Categories": {
-          "Automation": "Daily life tools, bots, Minecraft modding, and Telegram automation scripts.",
-          "Hacking": "I explored ethical hacking, including basic backdooring techniques in controlled environments."
+          "Automation": "I developed everyday automation scripts, <code>Minecraft</code> mods, <strong>Telegram bots</strong>, and task schedulers. A particularly important part of my work is <strong>Telegram bot integration</strong>: I designed bots capable of <em>remotely controlling scripts</em> running on my PC, allowing me to manage data processing, start or stop simulations, and monitor activity in real time. These solutions made my personal workflow more efficient and also introduced me to advanced event-driven design.",
+          "Hacking": "I explored <strong>ethical hacking</strong> in controlled environments, experimenting with network vulnerabilities, penetration testing, and basic backdoor prototypes. This was not about exploitation but about understanding <em>how systems break</em> and how they can be defended, helping me develop a strong awareness of cybersecurity principles and responsible coding practices.",
+          "Crypto": "I built <strong>cryptocurrency wallet trackers</strong> and automation bots capable of monitoring balances, sending alerts, and analyzing transaction patterns. These projects integrated third-party APIs with <code>Python</code> workflows and gave me practical insights into the mechanics of blockchain data and financial automation."
         }
       },
       "Highlights": {
         "e2D Module": {
-          "Purpose": "e2D is a Python library for 2D graphics and simulations, heavily used in my projects.",
-          "Maintenance": "Actively maintained and updated with custom features and performance improvements."
+          "Purpose": "<code>e2D</code> is my personal <code>Python</code> library for <em>2D graphics, environments, and simulations</em>, designed to accelerate the creation of interactive systems. It integrates <strong>graphical rendering</strong> with <em>physical and mathematical models</em>, making it central to most of my simulation projects.",
+          "Features": "Its main features include <code>vector mathematics</code> utilities, <code>color manipulation</code>, <strong>input handling</strong>, <strong>collision detection</strong>, and simplified wrappers around <code>Pygame</code>. It also provides a specialized <code>e2D.envs</code> module that allows for the quick creation of environments where <em>physical simulations</em> and <em>game-like interactions</em> can be tested.",
+          "Maintenance": "I actively maintain <code>e2D</code> by introducing performance upgrades and new modules. Currently, I am rewriting large portions of the library in <code>C</code> and <code>C++</code> to drastically improve efficiency, transforming <code>Python</code> wrappers into <em>compiled modules</em>. You can see working examples of the library powering my projects such as <a href='myprojects.html#/My%20Projects/Games/AI%20Algorithms/TicTacToe' target='_blank'>TicTacToe AI</a> and <a href='myprojects.html#/My%20Projects/Physics%20Simulations/Electric%20Field' target='_blank'>Electric Field Simulation</a>."
         }
       },
       "Collabs": {
-        "GitHub": "I use GitHub for project sharing, version control, and collaborative development.",
-        "Community": "I engage with other programmers by publishing code, discussing issues, and reviewing PRs."
+        "GitHub": "I use <a href='https://github.com/marick-py' target='_blank'>GitHub</a> as the central hub for my development work. There I upload projects, version-control my code, and collaborate with other developers through issues, pull requests, and contributions.",
+        "Community": "Through platforms like <a href='https://github.com/marick-py' target='_blank'>GitHub</a> and my website <a href='https://emptyhead.dev' target='_blank'>emptyhead.dev</a>, I actively contribute to the <strong>open-source community</strong>. I share code, exchange knowledge with other programmers, and make my libraries accessible for anyone interested in building upon them."
       },
-      "School Python Lessons": "I'm leading a series of extracurricular lessons on Python fundamentals at my school, covering topics from basic syntax to functions and algorithms."
+      "School Python Lessons": "I led extracurricular <code>Python</code> lessons at <strong>Liceo Scientifico Piero Bottoni</strong>. The lessons started with <em>basic input/output and syntax</em>, but gradually expanded to cover <em>data structures, algorithm design, and problem-solving strategies</em>. I encouraged students to complete small projects, such as calculators, games, and text-based systems, to strengthen their understanding. These lessons not only gave students practical skills but also allowed me to refine my own teaching style and leadership abilities."
     },
     "Experience": {
       "Simulation Work": {
         "Focus": {
           "High Performance": {
-            "Particle Engines": "I'm working on particle simulations with up to 30k particles rendered at stable FPS.",
-            "Optimization": "Utilizing NumPy, Numba, and Cython to optimize array-heavy computations."
+            "Particle Engines": "I created <strong>particle simulators</strong> capable of managing tens of thousands of particles in real time, ensuring <em>stable frame rates</em> through optimized algorithms and GPU-friendly designs.",
+            "Optimization": "My focus has been on pushing <code>Python</code> beyond its usual limits, using <code>NumPy</code> for vectorization, <code>Numba</code> for JIT compilation, and <code>Cython</code>/<code>C++</code> modules for the most computationally expensive sections."
           }
         },
         "Physics Models": {
-          "Mechanics": "Simulations involve collision dynamics, gravitational fields, and constraint-based forces.",
-          "Numerical Methods": "I apply vectorized math and iterative algorithms for realistic motion behavior."
+          "Mechanics": "My simulations cover <em>Newtonian mechanics</em>, collision dynamics, multi-body problems, gravitational interactions, and constraint-based systems such as <strong>springs</strong> or <strong>rigid rods</strong>. These allow me to test both theoretical physics and creative experimental setups.",
+          "Numerical Methods": "I frequently apply <em>iterative numerical methods</em>, differential solvers, and custom vectorized algorithms to achieve realistic system behavior. By carefully profiling performance, I optimize step sizes and solver strategies to balance accuracy and efficiency."
         }
       },
       "AI Experience": {
         "Algorithms": {
-          "Reinforcement": "I've built multiple Q-learning agents across various environments.",
-          "Neural Networks": "I experimented with PyTorch and TensorFlow to model deep-learning tasks. And I've built several neural network architectures from scratch for simpler projects.",
-          "NEAT": "Used NEAT for evolving AI behavior in game-like environments and simulations."
+          "Reinforcement": "I designed <strong>Q-learning agents</strong> capable of learning policies in custom environments, from simple games to optimization problems. These experiments helped me understand the balance between exploration and exploitation.",
+          "Neural Networks": "I experimented with <code>PyTorch</code> and <code>TensorFlow</code>, training deep learning models and also coding <em>basic neural networks</em> from scratch. This gave me a deep understanding of the mechanics of backpropagation and gradient descent.",
+          "NEAT": "I applied <strong>NeuroEvolution of Augmenting Topologies (NEAT)</strong> to evolve agents in simulations, particularly in environments where <em>adaptability</em> and <em>emergent behavior</em> were essential."
         },
         "Application Areas": {
-          "Image Recognition": "Applied convolutional architectures to classify image content. Used for screen reader bots playing games or for automation tasks.",
-          "Natural Language": "Built language models and basic chatbots using NLP techniques.",
-          "Projects Ratio": "Approximately 30% of my total projects include AI-related implementations."
+          "Simulation Projects": "My AI experiments span a wide range of domains: <strong>self-driving car simulations</strong> in simplified road environments, <strong>inverted pendulum control</strong> to test feedback loops, and <strong>evolutionary ecosystems</strong>. For example, I developed <em>ant colony systems</em> with pheromone trails and predator-prey models with <em>foxes, rabbits, and carrots</em>. These projects show how computation and natural behaviors can intersect to produce unexpected and emergent results."
         }
       }
     },
     "Tools": {
       "Programming Stack": {
-        "Languages": "Primary languages include Python, C, C++, Javascript and GDScript (Godot).",
-        "Python Libraries": "NumPy, Numba, Cython, TensorFlow, PyTorch and expecially my beloved e2D library. (which contains a e2D.envs module which is a wrapper for pygame)"
+        "Languages": "I mainly use <code>Python</code>, <code>C</code>, <code>C++</code>, <code>JavaScript</code>, and <code>GDScript</code> (Godot). <code>C</code> and <code>C++</code> are not only languages I explored academically but also essential tools I use for <em>optimization</em> and <em>low-level integration</em> with <code>Python</code> projects.",
+        "Python Libraries": "My daily stack includes <code>NumPy</code>, <code>Numba</code>, <code>Cython</code>, <code>TensorFlow</code>, <code>PyTorch</code>, and especially my custom <a href='myprojects.html' target='_blank'><code>e2D</code> library</a>. This library acts as a <em>multipurpose tool</em> that streamlines <strong>2D simulation and game design</strong>."
       },
       "DevOps": {
-        "Versioning": "I use Git and GitHub for structured and trackable development cycles.",
-        "Deployment": "I manage my own domain and perform advanced file transfer and publishing."
+        "Versioning": "I work with <code>Git</code> and <a href='https://github.com/marick-py' target='_blank'>GitHub</a> to track every stage of development, ensuring structured project histories, reproducible results, and easier collaboration.",
+        "Deployment": "I manage my personal domain <a href='https://emptyhead.dev' target='_blank'>emptyhead.dev</a>, handling advanced hosting practices. This includes maintaining live servers, transferring files, publishing <em>interactive simulations</em>, and presenting my portfolio online."
       },
       "Workflow": {
-        "IDE\\Editors": "Frequent tools include VSCode with advanced shortcut knowledge and Godot’s native editor.",
-        "Testing": "I perform manual and functional testing on most projects; exploring unit testing frameworks and debugging tools."
+        "IDE\\Editors": "My workflow revolves around <strong>VSCode</strong>, where I developed extensive shortcut knowledge for <em>maximum productivity</em>. For game and simulation projects, I rely on <code>Godot</code>’s editor, which integrates scripting and scene design in one platform.",
+        "Testing": "I combine <strong>manual testing</strong> with debugging, logging, and occasional unit tests for critical functions. For performance-sensitive work, I depend heavily on profiling tools to identify and fix bottlenecks.",
+        "Publishing": "Currently, I am focusing on publishing my most relevant projects on my website in a dedicated <a href='myprojects.html' target='_blank'>portfolio section</a>. The goal is to create a well-documented showcase accessible to the public, highlighting polished and interactive work."
       }
     }
   }

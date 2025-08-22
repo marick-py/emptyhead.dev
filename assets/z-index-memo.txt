@@ -2,7 +2,6 @@ main.css
     .overlay    => 1
     .quotes     => 0
 
-
 header.css
     #local-header => 10
     #global-header => 11

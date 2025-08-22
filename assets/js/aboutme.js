@@ -17,7 +17,8 @@ function getPathFromHash() {
     if (hash.startsWith('#/')) {
         return hash.slice(2).split('/');
     }
-    return ['About Me'];
+
+    return ['About Me', 'Profile', 'Identity', 'Basic'];
 }
 function updateURL(new_path) {
     currentPath = new_path;
@@ -26,12 +27,15 @@ function updateURL(new_path) {
         window.location.hash = newHash;
     }
 }
+
+let currentPath = getPathFromHash();
+
 window.addEventListener('hashchange', () => {
     currentPath = getPathFromHash();
     updateGraph();
 });
 
-let currentPath = getPathFromHash();
+
 // GRAPH FUNCTIONS
 
 function updateGraph() {    
@@ -63,7 +67,7 @@ function updateGraph() {
         node.style.top = `${y}px`;
         node.style.maxWidth = `${max_w}px`;
         node.path_to_this_node = path_to_this_node;
-        node.textContent = path_to_this_node[path_to_this_node.length-1];
+        node.innerHTML = path_to_this_node[path_to_this_node.length-1];
         node.x = x;
         node.y = y;
         return node;
@@ -104,15 +108,26 @@ function updateGraph() {
 
     function renderPath(path) {
         const offset = (window.pageYOffset || document.documentElement.scrollTop);
-        let y = 100;
         let x_space;
         let next_nodes = jsonData;
         let first_element;
 
         let last_row_of_lines = [];
 
+        const interNodesSectionHeight = parseInt(
+            getComputedStyle(document.documentElement)
+                .getPropertyValue('--inter-nodes-section-height')
+        );
+
+        const useInLineNodeSpacing = parseInt(
+            getComputedStyle(document.documentElement)
+            .getPropertyValue('--use-in-line-node-spacing')
+        );
+        
+        let y = useInLineNodeSpacing ? 100 : 0;
+
         for (let i = 0; i < path.length+1; i++) {
-            y += 75;
+            y += interNodesSectionHeight;
             
             next_nodes = i==0 ? next_nodes : next_nodes[path[i-1]];
             if (typeof next_nodes === 'object') {
@@ -120,7 +135,9 @@ function updateGraph() {
                 Object.entries(next_nodes).forEach(([key, _], index) => {
                     const node = createNode(path.slice(0,i).concat([key]), x_space*(index+1), y, x_space, path.includes(key));
                     nodesContainer.appendChild(node)
-                    y = node.getBoundingClientRect().bottom + node.getBoundingClientRect().height * .25 + offset;
+                    if (useInLineNodeSpacing) {
+                        y = (node.getBoundingClientRect().bottom + node.getBoundingClientRect().height * .25 + offset);
+                    }
                     if (path.includes(key)) {
                         if (i != 0) {
                             lineElements.push(i === 1 ? [first_element, node] : [lineElements[lineElements.length - 1][1], node]);
@@ -137,11 +154,13 @@ function updateGraph() {
                 });
             } else {
                 const node = createNode([next_nodes], window.innerWidth / 2, y, window.innerWidth, true);
-                nodesContainer.appendChild(node)
-                nodeElements.push(node);
-                y = node.getBoundingClientRect().bottom + node.getBoundingClientRect().height * .25 + offset;
                 node.className = "node description";
                 node.id = "description";
+
+                nodesContainer.appendChild(node)
+                nodeElements.push(node);
+
+                y = node.getBoundingClientRect().bottom + node.getBoundingClientRect().height * .25 + offset;
                 last_row_of_lines.push(i === 1 ? [first_element, node] : [lineElements[lineElements.length - 1][1], node]);
             }
         }

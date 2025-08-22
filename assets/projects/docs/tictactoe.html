@@ -42,7 +42,7 @@
 
         <!-- Header -->
         <header id="global-header" class="header scrolled">
-            <div class="logo"><a href="/">EmptyHead <span class="by">by marick</span></a></div>
+            <div class="logo"><a href="/">EmptyHead <span class="by">by Riccardo</span></a></div>
             <button id="menu-toggle" class="menu-toggle"><i class="fa-solid fa-bars"></i></button>
         </header>
 
@@ -96,7 +96,7 @@
 
         <!-- Local-Header -->
         <div class="header-bg"><header id="local-header" class="header">
-            <div class="logo"><a href="/">EmptyHead <span class="by">by marick</span></a></div>
+            <div class="logo"><a href="/">EmptyHead <span class="by">by R.M.</span></a></div>
             <button id="menu-toggle" class="menu-toggle"><i class="fas fa-bars"></i></button>
         </header></div>
 
@@ -118,7 +118,10 @@
                     introduction to <b>game tree search</b>, a fundamental technique in AI.
                 </p>
 
-                <img src="../../../assets/images/projects/tictactoe/preview.webp" alt="Tic Tac Toe Screenshot" class="project-image"/>
+                <video controls poster="../../../assets/images/projects/tictactoe/video-cover.webp" class="project-video">
+                    <source src="../../../assets/videos/projects/tictactoe/demo.webm" type="video/webm">
+                    Your browser does not support the video tag.
+                </video>
 
                 <h2>🔑 Key Features</h2>
                 <ul>
@@ -146,31 +149,59 @@
                     that guarantees the best final outcome.
                 </p>
 
-                <img src="../../../assets/images/projects/tictactoe/minimax_tree.webp" alt="Minimax Game Tree Example" class="project-image"/>
+                <img src="../../../assets/images/projects/tictactoe/minimax-dem.webp" alt="Minimax Game Tree Example" class="project-image"/>
 
-                <pre><code class="c">SearchResult MiniMax(int board[9], int turn, int depth, int alpha, int beta) {
-int win = is_win(board);
-if (win) return (SearchResult){ (win == AI ? 10 - depth : depth - 10), -1 };
-if (is_board_filled(board)) return (SearchResult){0, -1};
+                <pre><code class="c">// Defining the return type object
+typedef struct {
+    int value;
+    int action;
+} SearchResult;
 
-SearchResult best = { (turn == AI ? -11 : 11), -1 };
-for (int move = 0; move < 9; move++) {
-    if (board[move] != EMPTY) continue;
-    board[move] = turn;
-    SearchResult result = MiniMax(board, (turn==1?2:1), depth+1, alpha, beta);
-    board[move] = EMPTY;
 
-    if ((turn == AI && result.value > best.value) ||
-        (turn != AI && result.value < best.value)) {
-        best.value = result.value;
-        best.action = move;
+// Minimax algorithm with alpha-beta pruning
+SearchResult MiniMax(int current_board[9], const int current_turn, const int depth, int alpha, int beta) {
+    // check win or filled stop conditions
+
+    int win = is_win(current_board);
+    // if win return the score giving higher value depending on the depth
+    // if searching | more depth => worse
+    // if not searching | more depth => better
+    if (win) return (SearchResult){ (win == turn ? 10 - depth : depth - 10), -1 };
+
+    if (is_board_filled(current_board)) return (SearchResult){0, -1};
+
+    // create a best_result and best_value object with best_value depending if mini or maxing
+    SearchResult best_result = (SearchResult){(current_turn == turn) ? -11 : 11, -1};
+    
+    // loop over all the indicies
+    for (int action = 0; action < 9; action++) {
+        // if already taken skip
+        if (current_board[action] != EMPTY) continue;
+
+        // temporary set the action value
+        current_board[action] = current_turn;
+        SearchResult result = MiniMax(current_board, (current_turn == PLAYER_1) ? PLAYER_2 : PLAYER_1, depth+1, alpha, beta);
+
+        // reset the action
+        current_board[action] = EMPTY;
+
+        // check max if current_turn == turn else min
+        if ((current_turn == turn && result.value > best_result.value) ||
+            (current_turn != turn && result.value < best_result.value)) {
+            best_result.value = result.value;
+            best_result.action = action;
+        }
+
+        // update alpha and beta
+        if (current_turn == turn) {
+            if (best_result.value > alpha) alpha = best_result.value;
+        } else {
+            if (best_result.value < beta) beta = best_result.value;
+        }
+        // prune the action
+        if (beta <= alpha) { break; }
     }
-
-    if (turn == AI) alpha = (best.value > alpha) ? best.value : alpha;
-    else beta = (best.value < beta) ? best.value : beta;
-    if (beta <= alpha) break; // pruning
-}
-return best;
+    return best_result;
 }</code></pre>
 
                 <h2>✂️ Alpha-Beta Pruning</h2>
@@ -190,14 +221,15 @@ return best;
                     the result.
                 </p>
 
-                <img src="../../../assets/images/projects/tictactoe/alpha_beta_pruning.webp" alt="Alpha Beta Pruning Visualization" class="project-image"/>
+                <img src="../../../assets/images/projects/tictactoe/pruning-dem.webp" alt="Alpha Beta Pruning Visualization" class="project-image"/>
 
                 <h2>⚙️ Controls</h2>
                 <pre><code class="text">Enter move as:
-- row col   (e.g., 1 2 for row=1, col=2)
-- index     (0–8, left-to-right)
+- row col   (e.g., 1 2 for col=1, row=2)
+- index     (0–8, left-to-right | up-to-bottom)
 
-Choose AI player (X or O) and whether to enable move suggestions at the start.</code></pre>
+// Choose AI player (X or O) and whether to enable
+// move suggestions at the start.</code></pre>
 
                 <h2>📚 Educational Value</h2>
                 <p>
@@ -207,13 +239,79 @@ Choose AI player (X or O) and whether to enable move suggestions at the start.</
                     heuristics, and evaluation functions become essential.
                 </p>
 
-                <img src="../../../assets/images/projects/tictactoe/demo_game.webp" alt="Tic Tac Toe Demo Game" class="project-image"/>
+                <h2>🛠️ Compilation & Usage</h2>
+                <p>
+                    To compile and run the project on Windows, you can use the provided
+                    <code>compile.bat</code> script. This script ensures a <code>build</code>
+                    directory exists, compiles all <code>.c</code> files with debugging
+                    information and strict warnings enabled (<code>-Wall -Wextra</code>), and then
+                    launches the resulting executable.
+                </p>
+
+                <pre><code class="bat">@echo off
+setlocal
+
+cls
+
+REM Ensure build directory exists
+if not exist build (
+    mkdir build
+    echo Created build directory.
+)
+
+REM Compile all C files with debug info and warnings enabled
+gcc -g -Wall -Wextra *.c -o build\app.exe
+
+REM Check if compilation succeeded
+if errorlevel 1 (
+    echo Compilation failed. Please fix errors and try again.
+    pause
+    exit /b 1
+) else (
+    echo Build completed successfully.
+    echo Running the application...
+)
+
+build\app.exe
+
+endlocal</code></pre>
+
+                <p>
+                    This approach simplifies the development cycle: just run
+                    <code>compile.bat</code> and your code will be rebuilt and executed
+                    automatically. It also ensures that any warnings are shown, helping you
+                    maintain clean, portable code.
+                </p>
 
                 <div class="centered-button">
-                    <a href="https://github.com/marick-py/c/blob/main/tictactoe_minimax_alpha_beta.c"
+                    <a href="https://github.com/marick-py/C/tree/103d247f8df7d363877af89e2ce65310134bf3a0/prog(3)_(tictactoe)/v2_(alpha_beta_pruning)"
                     class="button" target="_blank">
                     🔗 View Project on GitHub
                     </a>
+                </div>
+                <div class="centered-button">
+                    <a href="../../../myprojects.html#/My%20Projects/Games/AI%20Algorithms/TicTacToe" class="button">
+                        🌳 Back to the tree
+                    </a>
+                </div>
+
+                <div id="chat-system">
+                    <script src="https://giscus.app/client.js"
+                    data-repo="marick-py/emptyhead.dev"
+                    data-repo-id="R_kgDOOaqypg"
+                    data-category="General"
+                    data-category-id="DIC_kwDOOaqyps4CpKFf"
+                    data-mapping="url"
+                    data-strict="0"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="top"
+                    data-theme="dark"
+                    data-lang="en"
+                    data-loading="lazy"
+                    crossorigin="anonymous"
+                    async>
+                    </script>
                 </div>
             </div>
         </section>

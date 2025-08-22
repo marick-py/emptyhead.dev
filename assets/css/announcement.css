@@ -1,15 +1,33 @@
-.project-announcement {
+code {
+    font-family: 'Fira Mono', 'Consolas', 'Menlo', 'Monaco', monospace;
+    font-size: 1em;
+    background: var(--bg-color-2-light-shade-1, #23272e);
+    color: var(--secondary-color, #ffb300);
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.project-announcements {
     margin: 40px auto;
     max-width: 1000px;
     padding: 10%;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 32px;
+}
+
+@media (min-width: 992px) {
+    .project-announcements {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
 }
 
 .announcement-card {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     background-color: var(--bg-color-2);
     border: 2px solid var(--primary-color);
     border-radius: 14px;
@@ -17,6 +35,8 @@
     box-shadow: 0 0 20px #00000055;
     transition: transform 0.3s ease;
     position: relative;
+    height: 100%;
+    justify-content: flex-end;
 }
 
 .announcement-card:hover {
@@ -27,13 +47,21 @@
     position: relative;
     width: 100%;
     overflow: hidden;
+    height: 100%;
+    max-height: none;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
 }
 
 .announcement-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center center;
     display: block;
+    max-height: 100%;
 }
 
 .image-overlay {
@@ -44,9 +72,11 @@
 }
 
 .announcement-content {
-    flex: 1;
     padding: 20px;
     color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 .announcement-content h2 {
@@ -60,18 +90,20 @@
     font-weight: bold;
     font-size: 1.4rem;
     margin-bottom: 10px;
+    line-height: 2rem;
 }
 
 .announcement-content .description {
     font-size: 1rem;
     line-height: 1.6;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
 }
 
 .button-row {
     display: flex;
     width: 100%;
     gap: 0;
+    margin-top: auto;
 }
 
 .button-row a {

@@ -46,7 +46,7 @@
 
 		<!-- Header -->
 		<header id="global-header" class="header scrolled">
-			<div class="logo"><a href="#">EmptyHead <span class="by">by marick</span></a></div>
+			<div class="logo"><a href="#">EmptyHead <span class="by">by R.M.</span></a></div>
 			<button id="menu-toggle" class="menu-toggle"><i class="fa-solid fa-bars"></i></button>
 		</header>
 		
@@ -102,7 +102,7 @@
 		<!-- Banner -->
 		<div class="banner">
 			<header id="local-header" class="header">
-				<div class="logo"><a href="#">EmptyHead <span class="by">by marick</span></a></div>
+				<div class="logo"><a href="#">EmptyHead <span class="by">by R.M.</span></a></div>
 				<button id="menu-toggle" class="menu-toggle"><i class="fas fa-bars"></i></button>
 			</header>
 			<img src="assets/images/banner.webp" alt="Banner Image" oncontextmenu="return false;" draggable="false">
@@ -119,7 +119,27 @@
 			</ul>
 		</div>
 
-		<section class="project-announcement">
+		<section class="project-announcements">
+			<div class="announcement-card">
+				<figure class="announcement-image">
+					<img src="assets/images/projects/tictactoe/minimax-dem.webp" alt="Tic Tac Toe Screenshot"> 
+					<div class="image-overlay"></div>
+				</figure>
+				<div class="announcement-content">
+					<h2>New Project Uploaded</h2>
+					<p class="title">🎮 Tic Tac Toe AI (Minimax + Alpha-Beta)</p>
+					<p class="description">
+						An unbeatable Tic Tac Toe AI built with <code>Minimax</code> algorithm
+						and optimized through <code>Alpha-Beta pruning</code>. Play against the AI,
+						enable move suggestions, and explore how decision trees work in practice.
+					</p>
+
+					<div class="button-row">
+						<a href="myprojects.html#/My%20Projects/Games/AI%20Algorithms/TicTacToe" class="secondary-button">🌳 Open in Tree</a>
+						<a href="assets/projects/docs/tictactoe.html" class="view-button">🔗 View Project</a>
+					</div>
+				</div>
+			</div>
 			<div class="announcement-card">
 				<figure class="announcement-image">
 				<img src="assets/images/projects/electric_field/electric_field_screenshot_2025_06_02_21_07_52.webp" alt="Electric Field Screenshot">
@@ -133,7 +153,7 @@
 				</p>
 
 				<div class="button-row">
-				<a href="myprojects.html#/My%20Projects%20(Work%20in%20progress)/Physics%20Simulations/Electric%20Field" class="secondary-button">🌳 Open in Tree</a>
+				<a href="myprojects.html#/My%20Projects/Physics%20Simulations/Electric%20Field" class="secondary-button">🌳 Open in Tree</a>
 				<a href="assets/projects/docs/electric_field.html" class="view-button">🔗 View Project</a>
 				</div>
 				</div>
@@ -145,25 +165,6 @@
 		<div class="quotes-buttons">
 			<button id="add-quote-btn">Load new quote</button>
 			<button id="reset-quotes-btn">Reset</button>
-		</div>
-
-		<div id="chat-system">
-			<script src="https://giscus.app/client.js"
-				data-repo="marick-py/emptyhead.dev"
-				data-repo-id="R_kgDOOaqypg"
-				data-category="General"
-				data-category-id="DIC_kwDOOaqyps4CpKFf"
-				data-mapping="url"
-				data-strict="0"
-				data-reactions-enabled="1"
-				data-emit-metadata="0"
-				data-input-position="top"
-				data-theme="dark"
-				data-lang="en"
-				data-loading="lazy"
-				crossorigin="anonymous"
-				async>
-			</script>
 		</div>
 
 		<!-- Footer -->
@@ -190,7 +191,6 @@
 		
 		<div id="copy-popup"></div>
 
-		
 		<script src="assets/js/main.js"></script>
 		
 		<script src="assets/js/login.js" type="module"></script>

@@ -275,11 +275,13 @@
         const remSeconds = seconds % 60;
 
         document.getElementById("mainCountdown").innerHTML = 
-            `<span class="num">${weeks}</span> weeks, 
-            <span class="num">${remDays}</span> days, 
-            <span class="num">${remHours}</span> hours, 
-            <span class="num">${remMinutes}</span> minutes, 
-            <span class="num">${remSeconds}</span> seconds`;
+            [
+                weeks !== 0 ? `<span class="num">${weeks}</span> weeks` : "",
+                remDays !== 0 ? `<span class="num">${remDays}</span> days` : "",
+                remHours !== 0 ? `<span class="num">${remHours}</span> hours` : "",
+                remMinutes !== 0 ? `<span class="num">${remMinutes}</span> minutes` : "",
+                remSeconds !== 0 ? `<span class="num">${remSeconds}</span> seconds` : ""
+            ].filter(Boolean).join(", ");
 
         const totalDuration = targetDate - startDate;
         const elapsed = now - startDate;

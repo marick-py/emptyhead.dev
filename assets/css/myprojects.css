@@ -241,6 +241,17 @@ body::-webkit-scrollbar-thumb {
     margin: 50px 0 10px 0;
 }
 
+#sub-description code {
+    font-family: 'Fira Mono', 'Consolas', 'Menlo', 'Monaco', monospace;
+    font-size: 1em;
+    background: var(--bg-color-2-light-shade-1);
+    color: var(--primary-color-dark-shade-1);
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
 #sub-description .logos-container {
     display: flex;
     justify-content: center;
@@ -264,7 +275,6 @@ body::-webkit-scrollbar-thumb {
     grid-template-columns: 1fr;
     align-items: center;
 }
-
 
 @media (min-width: 992px) {
     .project-container {

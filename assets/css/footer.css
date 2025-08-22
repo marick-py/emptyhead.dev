@@ -55,7 +55,9 @@ footer {
 
 .social-links {
     display: flex;
+    max-width: 1000px;
     justify-content: space-evenly;
+    margin: 0 auto;
 	margin-top: 100px;
 }
 
