@@ -25,7 +25,6 @@ function updateURL(new_path) {
     if (window.location.hash !== newHash) {
         window.location.hash = newHash;
     }
-    
 }
 window.addEventListener('hashchange', () => {
     currentPath = getPathFromHash();

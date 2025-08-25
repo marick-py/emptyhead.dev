@@ -109,6 +109,7 @@
 	font-weight: bold;
 }
 
+/* Overlay */
 .overlay {
     position: fixed;
     top: 0;
@@ -118,7 +119,7 @@
     background-color: var(--hover-layer-color);
     opacity: 0;
     pointer-events: none;
-	z-index: 1;
+	z-index: 3;
     transition: opacity 0.3s ease-in-out;
 }
 
@@ -145,12 +146,11 @@
     justify-content: space-between;
     width: 55%;
     height: 40px;
-    background: #222;
-    border-radius: 20px;
+    background: var(--bg-color-2-light-shade-1);
+    border-radius: 14px;
     cursor: pointer;
-    padding: 20px 20px;
+    padding: 20px;
     box-sizing: border-box;
-    color: #aaa;
     font-weight: bold;
     user-select: none;
 }
@@ -163,35 +163,37 @@
 
 .lang-switch .slider {
     position: absolute;
-    top: 4px;
+    top: 2px;
     left: 4px;
-    width: 44px;
-    height: 32px;
-    border-radius: 16px;
-    background: transparent;
-    border: 2px solid #fff;
-    transition: transform 0.3s;
+    height: 34px;
+    border-radius: 14px;
+    border: 1px solid #464646;
+    transition: transform 0.3s, background 0.3s;
     z-index: 1;
 }
 
 /* Stato iniziale (ITA attivo) */
 .lang-switch input:not(:checked) ~ .switch .lang-ita {
-    color: #fff;
+    color: var(--primary-color);
 }
 .lang-switch input:not(:checked) ~ .switch .lang-eng {
-    color: #666;
+    color: var(--secondary-color-dark-shade-1);
 }
 .lang-switch input:not(:checked) ~ .switch .slider {
     transform: translateX(0);
+    width: 67px;
+    background: linear-gradient(to left, var(--bg-color-2), var(--bg-color-light-shade-1));
 }
 
 /* Quando selezionato (ENG attivo) */
 .lang-switch input:checked ~ .switch .lang-ita {
-    color: #666;
+    color: var(--secondary-color-dark-shade-1);
 }
 .lang-switch input:checked ~ .switch .lang-eng {
-    color: #fff;
+    color: var(--primary-color);
 }
 .lang-switch input:checked ~ .switch .slider {
-    transform: translateX(100px);
+    transform: translateX(84px);
+    width: 81px;
+    background: linear-gradient(to right, var(--bg-color-2), var(--bg-color-light-shade-1));
 }

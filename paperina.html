@@ -53,6 +53,7 @@
             }
             h2 {
                 margin-top: 20px;
+                margin-bottom: 0px;
                 max-width: 90%;
                 font-family: "Great Vibes", cursive;
                 color: #1b1b1b;
@@ -64,10 +65,11 @@
                 display: flex;
                 overflow-x: auto;
                 gap: 20px;
-                padding: 20px;
+                padding: 50px 20px;
                 scroll-snap-type: x mandatory;
                 scrollbar-width: none;
                 max-width: 90%;
+                align-items: center;
             }
             .gallery::-webkit-scrollbar {
                 display: none;
@@ -76,7 +78,7 @@
                 flex: 0 0 auto;
                 width: 300px;
                 height: 400px;
-                object-fit: cover;
+                object-fit: contain;
                 border-radius: 20px;
                 scroll-snap-align: center;
                 box-shadow: 0 5px 15px rgba(0,0,0,0.2);
@@ -145,7 +147,7 @@
 
 <h1 style="margin-top: 50px;">Mi manchi tantissimo mia piccola ninfomane</h1>
 <h1>🧡 🧡</h1>
-<h2 style="font-size: 4em;"> ti amo</h2>
+<h2 style="font-size: 6.5em;"> ti amo</h2>
 
 <div class="gallery">
     <img src="assets/images/paperina/paperina_2.webp" alt="Us Photo 2">
@@ -255,7 +257,7 @@
         let diff = targetDate - now;
 
         if (diff <= 0) {
-            document.getElementById("mainCountdown").innerHTML = "IM HAPPYYYYYYY";
+            document.getElementById("mainCountdown").innerHTML = "TI AMO TANTO";
             document.getElementById("daysOnly").innerHTML = "";
             document.getElementById("hoursOnly").innerHTML = "";
             document.getElementById("minutesOnly").innerHTML = "";
@@ -263,11 +265,11 @@
             return;
         }
 
-        const seconds = Math.floor(diff / 1000);
-        const minutes = Math.floor(seconds / 60);
-        const hours = Math.floor(minutes / 60);
-        const days = Math.floor(hours / 24);
-        const weeks = Math.floor(days / 7);
+        const seconds = diff / 1000;
+        const minutes = seconds / 60;
+        const hours = minutes / 60;
+        const days = hours / 24;
+        const weeks = days / 7;
 
         const remDays = days % 7;
         const remHours = hours % 24;
@@ -276,11 +278,11 @@
 
         document.getElementById("mainCountdown").innerHTML = 
             [
-                weeks !== 0 ? `<span class="num">${weeks}</span> weeks` : "",
-                remDays !== 0 ? `<span class="num">${remDays}</span> days` : "",
-                remHours !== 0 ? `<span class="num">${remHours}</span> hours` : "",
-                remMinutes !== 0 ? `<span class="num">${remMinutes}</span> minutes` : "",
-                remSeconds !== 0 ? `<span class="num">${remSeconds}</span> seconds` : ""
+                Math.floor(weeks) !== 0 ? `<span class="num">${Math.floor(weeks)}</span> weeks` : "",
+                Math.floor(remDays) !== 0 ? `<span class="num">${Math.floor(remDays)}</span> days` : "",
+                Math.floor(remHours) !== 0 ? `<span class="num">${Math.floor(remHours)}</span> hours` : "",
+                Math.floor(remMinutes) !== 0 ? `<span class="num">${Math.floor(remMinutes)}</span> minutes` : "",
+                Math.floor(remSeconds) !== 0 ? `<span class="num">${Math.floor(remSeconds)}</span> seconds` : ""
             ].filter(Boolean).join(", ");
 
         const totalDuration = targetDate - startDate;
@@ -292,10 +294,10 @@
         document.getElementById("progressPercent").innerHTML = 
             `<span class="percentage">${percent.toFixed(5)}%</span>`;
 
-        document.getElementById("daysOnly").innerHTML = `<span class="num">${days}</span> days`;
-        document.getElementById("hoursOnly").innerHTML = `<span class="num">${hours}</span> hours`;
-        document.getElementById("minutesOnly").innerHTML = `<span class="num">${minutes}</span> minutes`;
-        document.getElementById("secondsOnly").innerHTML = `<span class="num">${seconds}</span> seconds`;
+        document.getElementById("daysOnly").innerHTML = `<span class="num">${days.toFixed(6)}</span> days`;
+        document.getElementById("hoursOnly").innerHTML = `<span class="num">${hours.toFixed(4)}</span> hours`;
+        document.getElementById("minutesOnly").innerHTML = `<span class="num">${minutes.toFixed(3)}</span> minutes`;
+        document.getElementById("secondsOnly").innerHTML = `<span class="num">${seconds.toFixed(1)}</span> seconds`;
     }
 
     setInterval(updateCountdown, 100);

@@ -1,31 +1,39 @@
 const nodesContainer = document.getElementById('Nodes');
 const linesContainer = document.getElementById('Lines');
 
-let jsonData;
+const langToggle = document.getElementById('lang-toggle');
 
-fetch('assets/json/aboutme.json')
-.then(response => response.json())
-.then(data => {
-    jsonData = data;
-    updateGraph();
-})
-.catch(error => {console.error('Error loading JSON:', error);});
 
-// HASH FUNCTIONS
+let enJsonData, itJsonData, jsonData;
+let it_en_table, en_it_table;
+
+function getLangFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const lang = params.get('lang');
+    return (lang === 'en' || lang === 'it') ? lang : null;
+}
+
 function getPathFromHash() {
     const hash = decodeURIComponent(window.location.hash);
     if (hash.startsWith('#/')) {
-        return hash.slice(2).split('/');
+        return hash.slice(2).split('/').filter(Boolean);
     }
-
     return ['About Me', 'Profile', 'Identity', 'Basic'];
 }
-function updateURL(new_path) {
+
+function updateURL(new_path, lang) {
     currentPath = new_path;
     const newHash = '#/' + currentPath.map(encodeURIComponent).join('/');
+    
+    const url = new URL(window.location);
+    url.searchParams.set('lang', lang);
+    
+    
     if (window.location.hash !== newHash) {
-        window.location.hash = newHash;
+        url.hash = newHash;
     }
+
+    window.location = url;
 }
 
 let currentPath = getPathFromHash();
@@ -194,12 +202,49 @@ function updateGraph() {
     separator.style.height = `${Math.max(height, 0)}px`;
 }
 
+function setLanguage(lang, save = true) {
+    jsonData = (lang === 'en') ? enJsonData : itJsonData;
+    currentPath = switchPathLanguage(currentPath, lang);
+    updateGraph();
+    updateURL(currentPath, lang);
+    if (save) localStorage.setItem('preferredLang', lang);
+}
+
+function switchPathLanguage(path, targetLang) {
+    const table = (targetLang === 'en') ? it_en_table : en_it_table;
+    return path.map(segment => table[segment] || segment);
+}
+
 document.addEventListener('click', event => {
     if (event.target.classList.contains('node') && !event.target.classList.contains("description")) {
-        updateURL(event.target.path_to_this_node);
+        updateURL(event.target.path_to_this_node, langToggle.checked ? 'en' : 'it');
     }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    fetch('assets/json/aboutme.json')
+    .then(response => response.json())
+    .then(data => {
+        enJsonData = data.en;
+        itJsonData = data.it;
+        en_it_table = data.en_it;
+        it_en_table = data.it_en;
+
+        const urlLang = getLangFromURL();
+        const savedLang = localStorage.getItem('preferredLang');
+        const initialLang = urlLang || savedLang || 'en';
+
+        setLanguage(initialLang, !urlLang);
+        langToggle.checked = (initialLang === 'en');
+    })
+    .catch(console.error);
 });
 
 window.addEventListener('resize', () => {
     updateGraph();
+});
+
+langToggle.addEventListener('change', () => {
+    const lang = langToggle.checked ? 'en' : 'it';
+    setLanguage(lang, true);
 });

@@ -8,13 +8,12 @@ header.css
 
 menu.css
     #menu       => 15
+    .overlay    => 3
 
 aboutme.css
-    .overlay    => 3
     .node       => 1
     .node:hover => 2
 
 myprojects.css
-    .overlay    => 3
     .node       => 1
     .node:hover => 2
