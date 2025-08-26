@@ -59,8 +59,14 @@ function updateGraph() {
     for (let i = 0; i < currentPath.length; i++) {
         current_node = current_node[currentPath[i]];
     }
-    if (typeof current_node === 'object' && Object.keys(current_node).length == 1) {
-        currentPath.push(Object.keys(current_node)[0]);
+    let changed = false;
+    while (typeof current_node === 'object' && Object.keys(current_node).length == 1) {
+        const singleKey = Object.keys(current_node)[0];
+        currentPath.push(singleKey);
+        current_node = current_node[singleKey];
+        changed = true;
+    }
+    if (changed) {
         updateURL(currentPath);
     }
 

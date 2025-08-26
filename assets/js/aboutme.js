@@ -4,8 +4,10 @@ const linesContainer = document.getElementById('Lines');
 const langToggle = document.getElementById('lang-toggle');
 
 
-let enJsonData, itJsonData, jsonData;
-let it_en_table, en_it_table;
+let jsonData;
+const table_en_it = { "Basic": "Base", "High School": "Superiori", "University": "Università", "PCTO Experience": "PCTO", "Education": "Formazione", "Teaching": "Insegnamento", "Identity": "Identità", "Scratch": "Scratch", "Transition": "Transizione", "Early Exposure": "Primi Passi", "Turning Point": "Svolta", "Origins": "Origini", "Profile": "Profilo", "Volume": "Volume", "Automation": "Automazione", "Hacking": "Hacking", "Crypto": "Crypto", "Categories": "Categorie", "Overview": "Panoramica", "Purpose": "Scopo", "Features": "Funzioni", "Maintenance": "Manutenzione", "e2D Module": "Modulo e2D", "Highlights": "In Evidenza", "GitHub": "GitHub", "Community": "Community", "Collabs": "Collaborazioni", "School Python Lessons": "Lezioni Scuola", "Projects": "Progetti", "Particle Engines": "Motori Particelle", "Optimization": "Ottimizzazione", "High Performance": "Alta Prestazione", "Focus": "Focus", "Mechanics": "Meccanica", "Numerical Methods": "Metodi Numerici", "Physics Models": "Modelli Fisici", "Simulation Work": "Simulazioni", "Reinforcement": "Reinforcement", "Neural Networks": "Reti Neurali", "NEAT": "NEAT", "Algorithms": "Algoritmi", "Simulation Projects": "Progetti Simulazioni", "Application Areas": "Applicazioni", "AI Experience": "AI", "Experience": "Esperienza", "Languages": "Linguaggi", "Python Libraries": "Librerie Python", "Programming Stack": "Stack Programmazione", "Versioning": "Versioning", "Deployment": "Deploy", "DevOps": "DevOps", "IDE\\Editors": "IDE\\Editor", "Testing": "Test", "Publishing": "Pubblicazione", "Workflow": "FlussoLavoro", "Tools": "Strumenti", "About Me": "Chi Sono"};
+const table_it_en = Object.fromEntries(Object.entries(table_en_it).map(([k, v]) => [v, k]));
+let table;
 
 function getLangFromURL() {
     const params = new URLSearchParams(window.location.search);
@@ -51,8 +53,15 @@ function updateGraph() {
     for (let i = 0; i < currentPath.length; i++) {
         current_node = current_node[currentPath[i]];
     }
-    if (typeof current_node === 'object' && Object.keys(current_node).length == 1) {
-        currentPath.push(Object.keys(current_node)[0]);
+    let changed = false;
+    while (typeof current_node === 'object' && Object.keys(current_node).length == 1) {
+        const singleKey = Object.keys(current_node)[0];
+        currentPath.push(singleKey);
+        current_node = current_node[singleKey];
+        changed = true;
+    }
+    if (changed) {
+        updateURL(currentPath, langToggle.checked ? 'en' : 'it');
     }
 
     let nodeElements = [];
@@ -203,15 +212,14 @@ function updateGraph() {
 }
 
 function setLanguage(lang, save = true) {
-    jsonData = (lang === 'en') ? enJsonData : itJsonData;
-    currentPath = switchPathLanguage(currentPath, lang);
-    updateGraph();
-    updateURL(currentPath, lang);
     if (save) localStorage.setItem('preferredLang', lang);
+    currentPath = switchPathLanguage(currentPath, lang);
+    updateURL(currentPath, lang);
+    if (!save) updateGraph();
 }
 
 function switchPathLanguage(path, targetLang) {
-    const table = (targetLang === 'en') ? it_en_table : en_it_table;
+    const table = (targetLang === 'en') ? table_it_en : table_en_it;
     return path.map(segment => table[segment] || segment);
 }
 
@@ -222,17 +230,14 @@ document.addEventListener('click', event => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('assets/json/aboutme.json')
+    const urlLang = getLangFromURL();
+    const savedLang = localStorage.getItem('preferredLang');
+    const initialLang = urlLang || savedLang || 'en';
+
+    fetch(`assets/json/aboutme_${initialLang}.json`)
     .then(response => response.json())
     .then(data => {
-        enJsonData = data.en;
-        itJsonData = data.it;
-        en_it_table = data.en_it;
-        it_en_table = data.it_en;
-
-        const urlLang = getLangFromURL();
-        const savedLang = localStorage.getItem('preferredLang');
-        const initialLang = urlLang || savedLang || 'en';
+        jsonData = data;
 
         setLanguage(initialLang, !urlLang);
         langToggle.checked = (initialLang === 'en');
