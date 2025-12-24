@@ -51,11 +51,6 @@ document.querySelectorAll('video').forEach(video => {
     sources.forEach(source => {
         source.addEventListener('error', () => handleMissingAsset(video, 'video'));
     });
-
-    // Check if already failed
-    if (video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) {
-        handleMissingAsset(video, 'video');
-   }
 });
 
 window.addEventListener("load", () => {

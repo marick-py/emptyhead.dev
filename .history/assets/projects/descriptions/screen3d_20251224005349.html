@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Off-Axis Projection VR</title>
+
+    <link rel="stylesheet" href="assets/css/variables.css" />
+</head>
+<body>
+    <div id="sub-description">
+        <h1>Off-Axis Projection VR Window</h1>
+        <p class="tag">
+            <strong>#254</strong> — <em>12/23/2025</em>
+        </p>
+
+        <div class="logos-container">
+            <img src="assets/images/languages-logos/Python.webp" alt="Python" draggable="false" oncontextmenu="return false;">
+            <!-- You might want to add an OpenGL or OpenCV logo here if you have them in your assets -->
+        </div>
+
+        <!-- 
+            [IMAGE GENERATION INSTRUCTION]: 
+            Take a screenshot of the application running in "Transparent Mode" over your actual desktop wallpaper.
+            Place a 3D object (like the Dragon or Room) so it looks like it's floating in your screen.
+            This sells the "Hologram" effect immediately.
+        -->
+        <img src="assets/images/projects/off_axis/off_axis_main_preview.webp" alt="Off-Axis VR Demonstration" class="prev-img" oncontextmenu="return false;" draggable="false">
+
+        <div class="project-container">
+            <div class="project-left">
+                <h2>~ Overview ~</h2>
+                <p>
+                    This project turns a standard 2D monitor into a <strong>holographic window</strong>. 
+                    By tracking the user's head position in real-time using stereo computer vision, the application 
+                    dynamically distorts the 3D projection matrix. This creates an <em>Off-Axis Projection</em>, 
+                    giving the illusion that the screen is a transparent pane of glass looking into a virtual world.
+                </p>
+
+                <h2>~ Features ~</h2>
+                <p>
+                    The system features a custom <strong>Stereo Head Tracker</strong> using MediaPipe and OpenCV, 
+                    a <strong>Calibration Suite</strong> for precise camera extrinsics, and a <strong>Transparent Overlay</strong> 
+                    mode that integrates 3D objects seamlessly into the Windows desktop environment.
+                </p>
+            </div>
+
+            <div class="project-right">
+                <!-- 
+                    [IMAGE GENERATION INSTRUCTION]: 
+                    Create a GIF or short video loop showing you moving your head left and right.
+                    The camera should be fixed (recording the screen), showing how the perspective of the 3D room changes 
+                    based on your head movement. This "Parallax" effect is the key feature.
+                -->
+                <img src="assets/images/projects/off_axis/off_axis_parallax_demo.webp" alt="Parallax Effect Demo" oncontextmenu="return false;" draggable="false">
+            </div>
+        </div>
+
+        <div class="open-link">
+            <a href="assets/projects/docs/off_axis_projection.html" id="open-project-page">
+                Open Project Page
+            </a>
+        </div>
+    </div>
+</body>
+</html>
