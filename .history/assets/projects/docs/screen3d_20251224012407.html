@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+    <head>
+        <title>EmptyHead | Projects</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="icon" type="image/png" href="../../../assets/images/favicon.png" sizes="32x32" />
+        
+        <meta property="og:title" content="Off-Axis Projection VR" />
+        <meta property="og:description" content="A desktop VR illusion using Head Tracking and Off-Axis Projection matrices." />
+        <meta property="og:url" content="https://www.emptyhead.dev/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="../../../assets/images/banner.webp">
+
+        <link rel="stylesheet" href="../../../assets/css/projects_docs.css" />
+        <link rel="stylesheet" href="../../../assets/css/variables.css" />
+        <link rel="stylesheet" href="../../../assets/css/loading-screen.css" />
+        <link rel="stylesheet" href="../../../assets/css/header.css" />
+        <link rel="stylesheet" href="../../../assets/css/menu.css" />
+        <link rel="stylesheet" href="../../../assets/css/footer.css" />
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/monokai.min.css">
+        
+        <style>
+            /* 
+             * TODO: Move these styles to assets/css/projects_docs.css 
+             * They have been refactored to use the existing theme variables.
+             */
+            .visualization-idea {
+                background: rgba(255, 255, 255, 0.05);
+                border-left: 4px solid var(--primary-color);
+                padding: 1rem;
+                margin: 1.5rem 0;
+                border-radius: 0 8px 8px 0;
+            }
+            .visualization-idea h3 {
+                margin-top: 0;
+                color: var(--primary-color);
+                font-size: 1.1rem;
+            }
+            .visualization-idea p {
+                margin-bottom: 0;
+                font-size: 0.9rem;
+                color: lightgrey;
+            }
+            .math-block {
+                background: var(--bg-color-dark-shade-1);
+                padding: 1rem;
+                border-radius: 10px;
+                overflow-x: auto;
+                margin: 1rem 0;
+                font-family: monospace;
+            }
+        </style>
+    </head>
+
+    <body class="loading">
+        <div id="loading-screen">
+            <div class="spinner"></div>
+        </div>
+        
+        <!-- Header -->
+        <header id="global-header" class="header scrolled">
+            <div class="logo"><a href="/">EmptyHead <span class="by">by R.M.</span></a></div>
+            <button id="menu-toggle" class="menu-toggle"><i class="fa-solid fa-bars"></i></button>
+        </header>
+
+		<div class="overlay"></div>
+        <nav id="menu">
+            <ul id="menu-buttons" class="links">
+                <li><a href="/">HOME</a></li>
+                <li><a href="/projects">PROJECTS</a></li>
+                <li><a href="/about">ABOUT</a></li>
+            </ul>
+		</nav>
+
+        <!-- Content -->
+        <section class="project-section">
+            <div class="project-content">
+                <h1>Off-Axis Projection VR Window</h1>
+                <p class="project-meta">
+                    <span class="date">December 2025</span> • 
+                    <span class="tag">Python</span> • 
+                    <span class="tag">OpenGL</span> • 
+                    <span class="tag">Computer Vision</span>
+                </p>
+
+                <img src="../../../assets/images/projects/off_axis/header_screenshot.webp" alt="Off-Axis VR Header" class="project-header-image"/>
+
+                <h2>👁️ The Illusion: Screen as a Window</h2>
+                <p>
+                    Traditional 3D rendering assumes a <strong>symmetric perspective projection</strong>. This means the virtual camera is fixed at a point $(0,0,z)$, looking directly at the center of the screen $(0,0,0)$. This works fine when you sit perfectly still in front of your monitor. However, the moment you move your head, the illusion breaks because the perspective doesn't shift with you.
+                </p>
+                <p>
+                    <strong>Off-Axis Projection</strong> (or Asymmetric Frustum Projection) decouples the camera's position from the center of projection. It treats the physical monitor not as a "camera lens", but as a <strong>window pane</strong>. No matter where your head is, the image on the screen is calculated to look correct from <em>that specific angle</em>.
+                </p>
+
+                <div class="visualization-idea">
+                    <h3>🎥 Visualization Idea: The "Fish Tank" Effect</h3>
+                    <p>
+                        <strong>Concept:</strong> A split-screen video.
+                        <br><strong>Left:</strong> External camera footage of you moving your head left/right/up/down in front of the monitor.
+                        <br><strong>Right:</strong> Screen recording of the application.
+                        <br><strong>Detail:</strong> Show that when you move <em>Left</em>, you can see the <em>Right</em> side of the virtual objects (e.g., the side of a cube that was previously hidden). This parallax is what creates the "hologram" feeling.
+                    </p>
+                </div>
+
+                <h2>📐 The Math: Asymmetric View Frustum</h2>
+                <p>
+                    In standard OpenGL, <code>gluPerspective</code> creates a symmetric pyramid. For this project, we need to manually define the <strong>frustum bounds</strong> (Left, Right, Bottom, Top) based on the user's head position relative to the screen.
+                </p>
+                <p>
+                    Let the screen width be $W$ and height be $H$. The screen lies on the $Z=0$ plane.
+                    The user's eye is at $P_{eye} = (x, y, z)$.
+                    The near clipping plane is at distance $n$ from the eye.
+                </p>
+                <p>
+                    We need to project the corners of the screen onto the near plane. Using similar triangles, the relationship is:
+                </p>
+
+                <div class="math-block">
+                    $$ \frac{bound}{screen\_edge - eye\_pos} = \frac{near}{eye\_z} $$
+                </div>
+
+                <p>Solving for the frustum bounds:</p>
+
+                <span class="equation">
+                    $$ left = (- \frac{W}{2} - x) \cdot \frac{n}{z} $$
+                    $$ right = (\frac{W}{2} - x) \cdot \frac{n}{z} $$
+                    $$ bottom = (- \frac{H}{2} - y) \cdot \frac{n}{z} $$
+                    $$ top = (\frac{H}{2} - y) \cdot \frac{n}{z} $$
+                </span>
+
+                <div class="visualization-idea">
+                    <h3>🖼️ Visualization Idea: The Skewed Pyramid</h3>
+                    <p>
+                        <strong>Concept:</strong> A 3D diagram (Blender render or clean line drawing).
+                        <br><strong>Scene:</strong> A rectangular "Screen" floating in space. A "Head" point floating in front of it.
+                        <br><strong>Action:</strong> Draw lines from the Head to the 4 corners of the Screen. This forms a pyramid.
+                        <br><strong>Key Insight:</strong> Show the Head moving <em>off-center</em>. The base of the pyramid (the screen) stays fixed, but the tip (the head) moves, causing the pyramid to become skewed (asymmetric). This skewed shape is the "Frustum" we calculate.
+                    </p>
+                </div>
+
+                <pre><code class="python">def set_off_axis_projection(head_pos):
+    """
+    Calculates and sets the asymmetric viewing frustum based on head position.
+    """
+    # Screen dimensions (in meters, defined in config)
+    w = SCREEN_WIDTH
+    h = SCREEN_HEIGHT
+    
+    # Head position relative to screen center
+    x, y, z = head_pos
+
+    # Near and Far clipping planes
+    near = 0.05
+    far = 100.0
+
+    # Calculate frustum bounds
+    left   = (-w/2 - x) * (near / z)
+    right  = ( w/2 - x) * (near / z)
+    bottom = (-h/2 - y) * (near / z)
+    top    = ( h/2 - y) * (near / z)
+
+    glMatrixMode(GL_PROJECTION)
+    glLoadIdentity()
+    glFrustum(left, right, bottom, top, near, far)
+    
+    # Translate the world opposite to head movement
+    # This keeps the "Screen" at (0,0,0) in world space
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+    gluLookAt(x, y, z,   # Eye
+              x, y, 0,   # Center (looking straight at screen plane projection)
+              0, 1, 0)   # Up</code></pre>
+
+                <h2>🤖 Stereo Head Tracking Pipeline</h2>
+                <p>
+                    To get the $(x, y, z)$ coordinates, I built a custom tracker using <strong>MediaPipe Face Mesh</strong> and a dual-webcam setup. A single camera can estimate pose, but it lacks true depth perception. Stereo vision solves this via triangulation.
+                </p>
+
+                <h3>1. Landmark Extraction</h3>
+                <p>
+                    We capture frames from two synchronized webcams. MediaPipe extracts 468 facial landmarks. We specifically track the <strong>Nose Tip</strong> (Landmark #1) as the representative point for the user's viewpoint.
+                </p>
+
+                <h3>2. Stereo Triangulation</h3>
+                <p>
+                    Given the x-coordinate of the nose in the Left Camera ($x_L$) and Right Camera ($x_R$), and knowing the focal length ($f$) and the baseline distance between cameras ($B$), the depth $Z$ is:
+                </p>
+                <span class="equation">
+                    $$ Z = \frac{f \cdot B}{x_L - x_R} $$
+                </span>
+                <p>
+                    In practice, I use <code>cv2.triangulatePoints</code> which handles the full projection matrices ($P_0, P_1$) derived from calibration.
+                </p>
+
+                <div class="visualization-idea">
+                    <h3>🖼️ Visualization Idea: Epipolar Geometry</h3>
+                    <p>
+                        <strong>Concept:</strong> An image showing the two camera views side-by-side.
+                        <br><strong>Overlay:</strong> Draw horizontal lines (Epipolar Lines) across both images.
+                        <br><strong>Insight:</strong> Show that a feature (like the nose) in the Left image lies on the same horizontal line in the Right image. This geometric constraint is what makes triangulation possible.
+                    </p>
+                </div>
+
+                <h3>3. Coordinate Transformation</h3>
+                <p>
+                    The raw triangulation gives us the position in "Camera 0 Space". We need to transform this to "Screen Space".
+                </p>
+                <ul>
+                    <li><strong>Step A:</strong> Transform Cam0 $\to$ Cam1 (using Extrinsics $R, T$).</li>
+                    <li><strong>Step B:</strong> Select Reference Camera (based on physical measurement).</li>
+                    <li><strong>Step C:</strong> Apply Physical Offset. We measure the distance from the reference camera to the center of the screen and subtract it.</li>
+                </ul>
+
+                <pre><code class="python"># From tracker.py
+# 1. Triangulate point in Camera 0 space
+pos_cam0 = self._calculate_depth(pt0, pt1)
+
+# 2. Transform to Camera 1 space (using Extrinsics from calibration)
+pos_cam1 = self.R @ pos_cam0 + self.T.flatten()
+
+# 3. Transform to Screen Space (Physical offset measurement)
+# We subtract the physical offset of the camera from the screen center
+pos_screen = pos_ref_cam - SCREEN_OFFSET_FROM_CAM</code></pre>
+
+                <h2>🧪 Calibration: The Key to Accuracy</h2>
+                <p>
+                    Cheap webcams have significant lens distortion (fisheye effect). Without correction, straight lines appear curved, and depth calculation fails.
+                </p>
+                <p>
+                    I implemented a robust calibration suite using a standard chessboard pattern.
+                </p>
+                <ol>
+                    <li><strong>Intrinsics Calibration:</strong> Calculates the Camera Matrix ($K$) and Distortion Coefficients ($D$) for each camera. This "undistorts" the images.</li>
+                    <li><strong>Stereo Extrinsics:</strong> Calculates the Rotation ($R$) and Translation ($T$) matrix between the two cameras. This tells the system exactly where the right camera is relative to the left one.</li>
+                </ol>
+
+                <div class="visualization-idea">
+                    <h3>🎥 Visualization Idea: The Calibration Dance</h3>
+                    <p>
+                        <strong>Concept:</strong> A timelapse video of the calibration process.
+                        <br><strong>Action:</strong> Show the user holding the chessboard at various angles and distances.
+                        <br><strong>Overlay:</strong> Flash the detected corners (colorful dots) on the screen as they are captured. Show a counter increasing "Samples: 1/20... 10/20...".
+                    </p>
+                </div>
+
+                <h2>🪟 Transparent Window Mode</h2>
+                <p>
+                    To enhance the immersion, the application can run as a <strong>transparent overlay</strong>. This allows 3D objects to appear as if they are floating on top of your actual desktop wallpaper or other windows.
+                </p>
+                <p>
+                    This is achieved using the Windows API <code>SetLayeredWindowAttributes</code>. We render the background using a specific "Chroma Key" color (Magenta), and tell Windows to treat that color as fully transparent and click-through.
+                </p>
+
+                <pre><code class="python"># Windows API Transparency Hack
+hwnd = pygame.display.get_wm_info()["window"]
+
+# Set Layered Window Attribute (WS_EX_LAYERED = 0x80000)
+old_style = ctypes.windll.user32.GetWindowLongW(hwnd, -20)
+ctypes.windll.user32.SetWindowLongW(hwnd, -20, old_style | 0x80000)
+
+# Set Magenta (0xFF00FF) as the transparency key
+# LWA_COLORKEY = 1
+ctypes.windll.user32.SetLayeredWindowAttributes(hwnd, 0x00FF00FF, 0, 1)</code></pre>
+
+                <div class="visualization-idea">
+                    <h3>🖼️ Visualization Idea: The Desktop Hologram</h3>
+                    <p>
+                        <strong>Concept:</strong> A screenshot of your full desktop.
+                        <br><strong>Content:</strong> You have a web browser open on the left, a code editor on the right.
+                        <br><strong>The Magic:</strong> In the center, floating <em>over</em> your wallpaper but <em>under</em> your icons (or mixed in), is the 3D rendered object (e.g., the Low Poly Bedroom). This demonstrates the transparency integration.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+		<!-- Footer -->
+		<footer class="bottom-footer">
+            <div class="footer-content">
+                <p>&copy; 2025 EmptyHead. All rights reserved.</p>
+            </div>
+		</footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+        
+        <script src="../../../assets/js/main.js"></script>
+    </body>
+</html>
